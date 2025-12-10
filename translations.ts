@@ -1,0 +1,110 @@
+export const translations = {
+  en: {
+    nav: {
+      home: 'Home',
+      movie: 'AI Cinema',
+      game: 'AI Gaming',
+      news: 'Research',
+      app: 'AI Apps',
+      connect: 'Connect Wallet',
+    },
+    hero: {
+      status: 'System Online v2.0.25',
+      title: 'The Nexus of Web3 Intelligence',
+      subtitle: 'FLYDAO empowers the future through AI-driven investment research, immersive gaming, and next-gen cinematic experiences.',
+      start: 'Start Exploring',
+      whitepaper: 'Read Whitepaper',
+      stats: {
+        community: 'Community',
+        treasury: 'Treasury',
+        projects: 'Projects',
+        proposals: 'Proposals',
+      }
+    },
+    sections: {
+      explore: 'Explore Dimensions',
+      explore_desc: 'Navigate through our specialized zones. Each dimension is powered by independent decentralized infrastructure.',
+      architecture: 'View Architecture Config',
+      movie_title: 'AI Cinema',
+      movie_desc: 'Immersive storytelling powered by generative video models. Watch, vote, and fund the next generation of automated cinema.',
+      movie_badge: 'Streaming',
+      game_title: 'AI Gaming',
+      game_desc: 'Play-to-earn mechanics meeting real-time AI NPCs. Experience dynamic narratives that adapt to your gameplay style.',
+      game_badge: 'Interactive',
+      news_title: 'Deep Research',
+      news_desc: 'Institutional-grade investment insights, powered by AI sentiment analysis and on-chain data verification.',
+      news_badge: 'Intelligence',
+      app_title: 'AI Apps',
+      app_desc: 'A curated suite of productivity tools and generative AI utilities tailored for the Web3 ecosystem.',
+      app_badge: 'Utilities',
+      enter: 'Enter Portal',
+    },
+    footer: {
+      desc: 'Building the decentralized future through the convergence of Artificial Intelligence and Web3 technologies. Join the revolution.',
+      ecosystem: 'Ecosystem',
+      community: 'Community',
+      rights: 'All rights reserved.',
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+    },
+    placeholder: {
+      back: 'Back to Main Hub',
+      note_title: 'Architecture Note',
+      note_desc: 'In the real deployment, this section is a separate GitHub repository. The main Next.js site uses rewrites to map the URL to a separate Vercel deployment.',
+    }
+  },
+  zh: {
+    nav: {
+      home: '首页',
+      movie: 'AI影视',
+      game: 'AI游戏',
+      news: '投研资讯',
+      app: 'AI应用',
+      connect: '连接钱包',
+    },
+    hero: {
+      status: '系统在线 v2.0.25',
+      title: 'Web3 与智能的连接点',
+      subtitle: 'FLYDAO 通过AI驱动的投研、沉浸式游戏和下一代影视体验，为未来赋能。',
+      start: '开始探索',
+      whitepaper: '阅读白皮书',
+      stats: {
+        community: '社区成员',
+        treasury: '国库资金',
+        projects: '孵化项目',
+        proposals: '治理提案',
+      }
+    },
+    sections: {
+      explore: '探索维度',
+      explore_desc: '浏览我们的专业领域。每个维度都由独立的去中心化基础设施提供支持。',
+      architecture: '查看架构配置',
+      movie_title: 'AI 影视',
+      movie_desc: '由生成式视频模型驱动的沉浸式叙事。观看、投票并资助下一代自动化电影。',
+      movie_badge: '流媒体',
+      game_title: 'AI 游戏',
+      game_desc: 'P2E 机制与实时 AI NPC 的结合。体验适应您游戏风格的动态叙事。',
+      game_badge: '互动娱乐',
+      news_title: '深度投研',
+      news_desc: '机构级投资洞察，由 AI 情感分析和链上数据验证提供支持。',
+      news_badge: '情报资讯',
+      app_title: 'AI 应用',
+      app_desc: '专为 Web3 生态系统量身定制的一套生产力工具和生成式 AI 实用程序。',
+      app_badge: '实用工具',
+      enter: '进入传送门',
+    },
+    footer: {
+      desc: '通过人工智能和 Web3 技术的融合，构建去中心化的未来。加入革命。',
+      ecosystem: '生态系统',
+      community: '社区',
+      rights: '版权所有。',
+      privacy: '隐私政策',
+      terms: '服务条款',
+    },
+    placeholder: {
+      back: '返回主控中心',
+      note_title: '架构说明',
+      note_desc: '在实际部署中，此板块是一个独立的 GitHub 仓库。主 Next.js 站点使用 rewrites 规则将 URL 映射到独立的 Vercel 部署。',
+    }
+  }
+};
