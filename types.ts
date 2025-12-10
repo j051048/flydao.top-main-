@@ -6,6 +6,7 @@ export enum SectionType {
   GAME = 'game',
   NEWS = 'news',
   APP = 'app',
+  WHITEPAPER = 'whitepaper',
 }
 
 export type Language = 'en' | 'zh';

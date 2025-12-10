@@ -1,8 +1,13 @@
 import React from 'react';
 import { ArrowRight, Globe } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
+import { SectionType } from '../types';
 
-const HeroSection: React.FC = () => {
+interface Props {
+  onNavigate: (section: SectionType) => void;
+}
+
+const HeroSection: React.FC<Props> = ({ onNavigate }) => {
   const { t } = useAppContext();
 
   return (
@@ -36,14 +41,23 @@ const HeroSection: React.FC = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="group relative px-8 py-4 bg-textMain text-background rounded-full font-bold text-sm tracking-wide overflow-hidden transition-all hover:scale-105">
+          <button 
+            onClick={() => {
+              const el = document.getElementById('explore-section');
+              el?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="group relative px-8 py-4 bg-textMain text-background rounded-full font-bold text-sm tracking-wide overflow-hidden transition-all hover:scale-105"
+          >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
               {t.hero.start} <ArrowRight className="w-4 h-4" />
             </span>
           </button>
           
-          <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-sm text-textMain tracking-wide hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm">
+          <button 
+            onClick={() => onNavigate(SectionType.WHITEPAPER)}
+            className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-sm text-textMain tracking-wide hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm"
+          >
             <Globe className="w-4 h-4 text-textMuted" />
             {t.hero.whitepaper}
           </button>

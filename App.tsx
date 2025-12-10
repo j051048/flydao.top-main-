@@ -5,6 +5,7 @@ import HeroSection from './components/HeroSection';
 import FeatureCard from './components/FeatureCard';
 import Footer from './components/Footer';
 import SubAppPlaceholder from './components/SubAppPlaceholder';
+import WhitepaperView from './components/WhitepaperView';
 import ArchitectureModal from './components/ArchitectureModal';
 import { SectionType } from './types';
 import { AppProvider, useAppContext } from './contexts/AppContext';
@@ -19,6 +20,15 @@ const AppContent: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setCurrentSection(section);
   };
+
+  // If Whitepaper
+  if (currentSection === SectionType.WHITEPAPER) {
+    return (
+      <div className="min-h-screen bg-background text-textMain">
+        <WhitepaperView onBack={() => handleNavigate(SectionType.HOME)} />
+      </div>
+    );
+  }
 
   // If we are in a sub-app "route", render the sub-app placeholder
   if (currentSection !== SectionType.HOME) {
@@ -38,10 +48,10 @@ const AppContent: React.FC = () => {
 
       <main>
         {/* Hero Section */}
-        <HeroSection />
+        <HeroSection onNavigate={handleNavigate} />
 
         {/* Portals Section */}
-        <section className="py-24 relative">
+        <section id="explore-section" className="py-24 relative">
             <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
