@@ -33,7 +33,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
               
               {/* APP CARD 1: Cartoon Weather */}
               <a 
-                href="https://chuandafree.vercel.app/" 
+                href="https://app1.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-accent/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
@@ -67,7 +67,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
 
               {/* APP CARD 2: Real Weather */}
               <a 
-                href="https://aichuanda.vercel.app/" 
+                href="https://app2.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20"

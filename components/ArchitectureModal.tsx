@@ -18,12 +18,12 @@ const nextConfig = {
       // 1. AI Weather (Cartoon)
       {
         source: '/app/weather-cartoon/:path*',
-        destination: 'https://chuandafree.vercel.app/:path*',
+        destination: 'https://app1.flydao.top/:path*',
       },
       // 2. AI Weather (Real)
       {
         source: '/app/weather-real/:path*',
-        destination: 'https://aichuanda.vercel.app/:path*',
+        destination: 'https://app2.flydao.top/:path*',
       },
       // Other Sections
       {
