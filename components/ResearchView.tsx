@@ -130,7 +130,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
                 </div>
              </div>
              <div className="text-sm text-textMuted leading-relaxed">
-               核心预测：宏观力量的博弈将引导BTC走出<span className="text-white">“短期探底 ($85k) -> 中期复苏 ($105k) -> 长期加速 ($180k)”</span>的三阶段路径。
+               核心预测：宏观力量的博弈将引导BTC走出<span className="text-white">“短期探底 ($85k) → 中期复苏 ($105k) → 长期加速 ($180k)”</span>的三阶段路径。
              </div>
           </div>
         )
