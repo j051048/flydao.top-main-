@@ -6,6 +6,7 @@ import FeatureCard from './components/FeatureCard';
 import Footer from './components/Footer';
 import SubAppPlaceholder from './components/SubAppPlaceholder';
 import WhitepaperView from './components/WhitepaperView';
+import ResearchView from './components/ResearchView';
 import ArchitectureModal from './components/ArchitectureModal';
 import { SectionType } from './types';
 import { AppProvider, useAppContext } from './contexts/AppContext';
@@ -30,7 +31,16 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // If we are in a sub-app "route", render the sub-app placeholder
+  // If Research/News
+  if (currentSection === SectionType.NEWS) {
+    return (
+      <div className="min-h-screen bg-background text-textMain">
+        <ResearchView onBack={() => handleNavigate(SectionType.HOME)} />
+      </div>
+    );
+  }
+
+  // If we are in other sub-apps (Movie, Game, App), render the placeholder
   if (currentSection !== SectionType.HOME) {
     return (
       <div className="min-h-screen bg-background text-textMain">
