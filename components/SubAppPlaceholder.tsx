@@ -1,7 +1,8 @@
-import React from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
+import InstructionModal from './InstructionModal';
 
 interface Props {
   type: SectionType;
@@ -10,6 +11,7 @@ interface Props {
 
 const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
   const { t, language } = useAppContext();
+  const [showInstructions, setShowInstructions] = useState(false);
 
   // If this is the APP section, render the special showcase layout
   if (type === SectionType.APP) {
@@ -26,6 +28,13 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
               <div>
                 <h1 className="text-3xl font-bold text-textMain">{t.sections.app_title}</h1>
                 <p className="text-sm text-textMuted">{t.sections.app_desc}</p>
+                <button
+                  onClick={() => setShowInstructions(true)}
+                  className="mt-4 flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600/30 hover:to-purple-600/30 text-blue-300 border border-blue-500/20 rounded-lg text-xs font-bold transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+                >
+                  <BookOpen className="w-3 h-3" />
+                  AI应用使用说明
+                </button>
               </div>
            </div>
 
@@ -153,6 +162,8 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
 
            </div>
         </div>
+
+        <InstructionModal isOpen={showInstructions} onClose={() => setShowInstructions(false)} />
       </div>
     );
   }
