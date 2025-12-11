@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Film, Gamepad2, Newspaper, HelpCircle, Code, Cpu } from 'lucide-react';
+import { Film, Gamepad2, Newspaper, HelpCircle, Code, Cpu, BookOpen, Camera } from 'lucide-react';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import FeatureCard from './components/FeatureCard';
@@ -40,7 +40,7 @@ const AppContent: React.FC = () => {
     );
   }
 
-  // If we are in other sub-apps (Movie, Game, App), render the placeholder
+  // If we are in other sub-apps (Movie, Game, App, Literature, Photography), render the placeholder
   if (currentSection !== SectionType.HOME) {
     return (
       <div className="min-h-screen bg-background text-textMain">
@@ -82,7 +82,7 @@ const AppContent: React.FC = () => {
                   </button>
               </div>
 
-              {/* 2x2 Grid for 4 items */}
+              {/* Grid for 6 items */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
                 <FeatureCard 
                   title={t.sections.movie_title}
@@ -112,6 +112,26 @@ const AppContent: React.FC = () => {
                   gradient="from-orange-500 to-amber-500"
                   link="/news"
                   onClick={() => handleNavigate(SectionType.NEWS)}
+                />
+
+                <FeatureCard 
+                  title={t.sections.literature_title}
+                  description={t.sections.literature_desc}
+                  icon={BookOpen}
+                  badge={t.sections.literature_badge}
+                  gradient="from-cyan-600 to-teal-600"
+                  link="/literature"
+                  onClick={() => handleNavigate(SectionType.LITERATURE)}
+                />
+
+                <FeatureCard 
+                  title={t.sections.photography_title}
+                  description={t.sections.photography_desc}
+                  icon={Camera}
+                  badge={t.sections.photography_badge}
+                  gradient="from-fuchsia-600 to-pink-600"
+                  link="/photography"
+                  onClick={() => handleNavigate(SectionType.PHOTOGRAPHY)}
                 />
 
                 <FeatureCard 

@@ -43,6 +43,14 @@ const nextConfig = {
         source: '/news/:path*',
         destination: 'https://flydao-news.vercel.app/:path*',
       },
+      {
+        source: '/literature/:path*',
+        destination: 'https://flydao-lit.vercel.app/:path*',
+      },
+      {
+        source: '/photography/:path*',
+        destination: 'https://flydao-photo.vercel.app/:path*',
+      },
     ]
   },
 }

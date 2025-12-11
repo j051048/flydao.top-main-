@@ -5,6 +5,8 @@ export enum SectionType {
   MOVIE = 'movie',
   GAME = 'game',
   NEWS = 'news',
+  LITERATURE = 'literature',
+  PHOTOGRAPHY = 'photography',
   APP = 'app',
   WHITEPAPER = 'whitepaper',
 }

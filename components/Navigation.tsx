@@ -29,6 +29,8 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
       case SectionType.MOVIE: return t.nav.movie;
       case SectionType.GAME: return t.nav.game;
       case SectionType.NEWS: return t.nav.news;
+      case SectionType.LITERATURE: return t.nav.literature;
+      case SectionType.PHOTOGRAPHY: return t.nav.photography;
       case SectionType.APP: return t.nav.app;
       default: return '';
     }

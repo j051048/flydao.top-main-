@@ -26,6 +26,8 @@ const Footer: React.FC = () => {
               <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.movie}</a></li>
               <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.game}</a></li>
               <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.news}</a></li>
+              <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.literature}</a></li>
+              <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.photography}</a></li>
               <li><a href="#" className="text-textMuted hover:text-accent transition-colors text-sm">{t.nav.app}</a></li>
             </ul>
           </div>
@@ -33,7 +35,12 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-textMain font-semibold mb-4 tracking-wider text-sm uppercase">{t.footer.community}</h3>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:bg-primary hover:text-white transition-all duration-300">
+              <a 
+                href="https://x.com/0xFelix1989" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:bg-primary hover:text-white transition-all duration-300"
+              >
                 <Twitter className="w-5 h-5" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-textMuted hover:bg-secondary hover:text-white transition-all duration-300">

@@ -157,7 +157,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
     );
   }
 
-  // Fallback for other sections (Movie/Game/News) that are "External" in this demo
+  // Fallback for other sections (Movie/Game/News/Literature/Photography)
   const getConfig = () => {
     switch(type) {
       case SectionType.MOVIE:
@@ -177,6 +177,18 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
           title: t.sections.news_title,
           sub: t.sections.news_desc,
           url: 'flydao.top/news'
+        };
+      case SectionType.LITERATURE:
+        return {
+          title: t.sections.literature_title,
+          sub: t.sections.literature_desc,
+          url: 'flydao.top/literature'
+        };
+      case SectionType.PHOTOGRAPHY:
+        return {
+          title: t.sections.photography_title,
+          sub: t.sections.photography_desc,
+          url: 'flydao.top/photography'
         };
       default:
         return { title: 'Unknown', sub: '', url: '' };
