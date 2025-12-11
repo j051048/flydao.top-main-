@@ -25,6 +25,11 @@ const nextConfig = {
         source: '/app/weather-real/:path*',
         destination: 'https://app2.flydao.top/:path*',
       },
+      // 3. AI Portrait (Master)
+      {
+        source: '/app/portrait-master/:path*',
+        destination: 'https://app3.flydao.top/:path*',
+      },
       // Other Sections
       {
         source: '/movie/:path*',

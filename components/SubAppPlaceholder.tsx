@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
 
@@ -98,6 +98,45 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                     </h3>
                     <div className="flex items-center gap-2 text-xs text-purple-300 font-mono">
                       <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                      Vercel App
+                      <ExternalLink className="w-3 h-3" />
+                    </div>
+                 </div>
+              </a>
+
+              {/* APP CARD 3: AI Portrait Master */}
+              <a 
+                href="https://app3.flydao.top" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/20"
+              >
+                 {/* Background Gradient */}
+                 <div className="absolute inset-0 bg-gradient-to-b from-rose-400/20 to-orange-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                 
+                 {/* 3D Icon Composition */}
+                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 flex items-center justify-center">
+                    {/* Circle Backing */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md"></div>
+                    
+                    {/* Stylized Camera Icon */}
+                    <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute inset-0 bg-rose-500 blur-2xl opacity-40"></div>
+                        <Camera className="w-24 h-24 text-rose-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Sparkles */}
+                    <div className="absolute top-2 right-6 w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                    <Sparkles className="absolute bottom-6 left-4 w-8 h-8 text-yellow-300 animate-spin-slow" />
+                 </div>
+
+                 {/* Text Info */}
+                 <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent pt-20">
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {language === 'zh' ? 'AI写真馆 (大师版)' : 'AI Portrait (Master)'}
+                    </h3>
+                    <div className="flex items-center gap-2 text-xs text-rose-300 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
                       Vercel App
                       <ExternalLink className="w-3 h-3" />
                     </div>
