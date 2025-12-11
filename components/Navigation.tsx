@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket, Globe, Palette } from 'lucide-react';
+import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle } from 'lucide-react';
 import { NAV_ITEMS, APP_NAME } from '../constants';
 import { SectionType, Theme } from '../types';
 import { useAppContext } from '../contexts/AppContext';
+import { useWallet } from '../web3/hooks';
 
 interface NavigationProps {
   currentSection: SectionType;
@@ -14,6 +15,17 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showThemeMenu, setShowThemeMenu] = useState(false);
+  
+  // Web3 Integration
+  const { 
+    isConnected, 
+    formattedAddress, 
+    connect, 
+    disconnect, 
+    isConnecting, 
+    error,
+    balance
+  } = useWallet();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,6 +34,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Show error alert if wallet error occurs
+  useEffect(() => {
+    if (error) {
+        alert(error); // Simple alert for MVP, can be replaced with a toast later
+    }
+  }, [error]);
 
   const getNavLabel = (id: SectionType) => {
     switch (id) {
@@ -120,9 +139,46 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                 {language.toUpperCase()}
              </button>
 
-             <button className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)]">
-                {t.nav.connect}
-             </button>
+             {/* Web3 Connect Button */}
+             {isConnected ? (
+                <div className="flex items-center gap-2">
+                    <div className="bg-surface border border-white/10 rounded-full pl-3 pr-1 py-1 flex items-center gap-3">
+                        <div className="flex flex-col items-end mr-1">
+                            <span className="text-[10px] text-textMuted font-mono leading-none mb-0.5">X Layer</span>
+                            <span className="text-xs font-bold text-accent leading-none">
+                                {balance ? parseFloat(balance.formatted).toFixed(3) : '0.00'} {balance?.symbol}
+                            </span>
+                        </div>
+                        <button 
+                            onClick={() => disconnect()}
+                            className="bg-white/10 hover:bg-red-500/20 text-textMain hover:text-red-400 px-3 py-1.5 rounded-full font-mono text-xs transition-all flex items-center gap-2 group"
+                            title="Disconnect Wallet"
+                        >
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse group-hover:bg-red-500"></span>
+                            {formattedAddress}
+                            <LogOut className="w-3 h-3 ml-1" />
+                        </button>
+                    </div>
+                </div>
+             ) : (
+                <button 
+                    onClick={() => connect()}
+                    disabled={isConnecting}
+                    className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait"
+                >
+                    {isConnecting ? (
+                        <>
+                           <Loader2 className="w-3 h-3 animate-spin" />
+                           Connecting...
+                        </>
+                    ) : (
+                        <>
+                           <Wallet className="w-3 h-3" />
+                           {t.nav.connect}
+                        </>
+                    )}
+                </button>
+             )}
           </div>
 
           {/* Mobile menu button */}
@@ -178,9 +234,26 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
             </div>
 
             <div className="px-3 py-4">
-              <button className="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-lg font-bold">
-                  {t.nav.connect}
-              </button>
+              {isConnected ? (
+                  <button 
+                    onClick={() => disconnect()}
+                    className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                  >
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      {formattedAddress} (Disconnect)
+                  </button>
+              ) : (
+                  <button 
+                    onClick={() => {
+                        connect();
+                        setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                  >
+                      <Wallet className="w-4 h-4" />
+                      {t.nav.connect}
+                  </button>
+              )}
             </div>
           </div>
         </div>
