@@ -52,7 +52,7 @@ export const wagmiConfig = createConfig({
     // 优先级 4: Coinbase Smart Wallet
     coinbaseWallet({ 
       appName: 'FLYDAO',
-      preference: { options: 'smartWalletOnly' }
+      preference: 'smartWalletOnly' as any
     }),
     
     // 优先级 5: MetaMask 特定连接器 (兼容移动端深链)
