@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle } from 'lucide-react';
+import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle, RefreshCw } from 'lucide-react';
 import { formatUnits } from 'viem';
+import { xLayer } from 'viem/chains';
 import { NAV_ITEMS, APP_NAME } from '../constants';
 import { SectionType, Theme } from '../types';
 import { useAppContext } from '../contexts/AppContext';
@@ -21,13 +22,17 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   const { 
     isConnected, 
     formattedAddress, 
-    connectorName, // 获取连接器名称
+    connectorName, 
     connect, 
     disconnect, 
     isConnecting, 
     error,
-    balance
+    balance,
+    chainId,
+    switchChain
   } = useWallet();
+
+  const isWrongNetwork = isConnected && chainId !== xLayer.id;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,7 +45,6 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   // Show error alert if wallet error occurs
   useEffect(() => {
     if (error) {
-        // 简单的错误提示，避免因为用户取消操作而频繁弹窗
         if (!error.includes('User Rejected')) {
             alert(error);
         }
@@ -147,30 +151,52 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
              {/* Web3 Connect Button */}
              {isConnected ? (
                 <div className="flex items-center gap-2">
-                    <div className="bg-surface border border-white/10 rounded-full pl-3 pr-1 py-1 flex items-center gap-3">
-                        <div className="flex flex-col items-end mr-1">
-                            <span className="text-[10px] text-textMuted font-mono leading-none mb-0.5">X Layer</span>
-                            <span className="text-xs font-bold text-accent leading-none">
-                                {balance ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
-                            </span>
-                        </div>
+                    {isWrongNetwork ? (
                         <button 
-                            onClick={() => disconnect()}
-                            className="bg-white/10 hover:bg-red-500/20 text-textMain hover:text-red-400 px-3 py-1.5 rounded-full font-mono text-xs transition-all flex items-center gap-2 group"
-                            title="Disconnect Wallet"
+                            onClick={() => switchChain(xLayer.id)}
+                            className="bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-400 px-4 py-2 rounded-full font-mono text-xs flex items-center gap-2 transition-all animate-pulse whitespace-nowrap"
                         >
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse group-hover:bg-red-500"></span>
-                            {/* Format: Address (ConnectorName) */}
-                            {formattedAddress} {connectorName ? `(${connectorName})` : ''}
-                            <LogOut className="w-3 h-3 ml-1" />
+                            <AlertCircle className="w-3 h-3" />
+                            Switch to X Layer
+                            <RefreshCw className="w-3 h-3" />
                         </button>
-                    </div>
+                    ) : (
+                        <div className="flex items-center gap-3 bg-surface/80 border border-white/10 rounded-full py-1.5 pl-4 pr-1.5 backdrop-blur-md shadow-sm transition-all hover:border-white/20 hover:bg-surface">
+                            {/* Network & Balance */}
+                            <div className="flex flex-col items-end space-y-0.5">
+                                <span className="text-[10px] font-bold text-textMuted uppercase tracking-wider leading-none">X Layer</span>
+                                <span className="text-xs font-mono font-bold text-accent leading-none whitespace-nowrap">
+                                    {balance ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
+                                </span>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="w-px h-5 bg-white/10"></div>
+
+                            {/* Wallet Button */}
+                            <button 
+                                onClick={() => disconnect()}
+                                className="group flex items-center gap-2 pl-1 pr-2 py-1 rounded-full hover:bg-white/5 transition-all"
+                                title="Click to disconnect"
+                            >
+                                <div className="relative flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                                    <span className="absolute w-full h-full rounded-full bg-white opacity-20 animate-pulse"></span>
+                                </div>
+                                <span className="text-xs font-mono font-bold text-textMain group-hover:text-red-400 transition-colors whitespace-nowrap">
+                                    {formattedAddress}
+                                </span>
+                                <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-red-500/20 group-hover:text-red-400 transition-colors ml-1">
+                                    <LogOut className="w-3 h-3" />
+                                </div>
+                            </button>
+                        </div>
+                    )}
                 </div>
              ) : (
                 <button 
-                    onClick={() => connect()} // 调用无参 connect，执行 hooks.ts 中的默认策略
+                    onClick={() => connect()} 
                     disabled={isConnecting}
-                    className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait"
+                    className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait whitespace-nowrap"
                 >
                     {isConnecting ? (
                         <>
@@ -241,13 +267,23 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
 
             <div className="px-3 py-4">
               {isConnected ? (
-                  <button 
-                    onClick={() => disconnect()}
-                    className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
-                  >
-                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                      {formattedAddress} ({connectorName})
-                  </button>
+                  isWrongNetwork ? (
+                    <button 
+                        onClick={() => switchChain(xLayer.id)}
+                        className="w-full bg-red-500/20 border border-red-500/50 text-red-400 px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                    >
+                        <AlertCircle className="w-4 h-4" />
+                        Switch Network
+                    </button>
+                  ) : (
+                    <button 
+                        onClick={() => disconnect()}
+                        className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                        {formattedAddress} ({connectorName})
+                    </button>
+                  )
               ) : (
                   <button 
                     onClick={() => {

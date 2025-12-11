@@ -83,6 +83,7 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
           parseUnits(PAYMENT_AMOUNT, 18) // Assuming 18 decimals
         ],
         account: address,
+        chain: xLayer,
       });
     } catch (error) {
       console.error('Payment failed:', error);
