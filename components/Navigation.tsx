@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle } from 'lucide-react';
+import { formatUnits } from 'viem';
 import { NAV_ITEMS, APP_NAME } from '../constants';
 import { SectionType, Theme } from '../types';
 import { useAppContext } from '../contexts/AppContext';
@@ -20,6 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   const { 
     isConnected, 
     formattedAddress, 
+    connectorName, // 获取连接器名称
     connect, 
     disconnect, 
     isConnecting, 
@@ -38,7 +40,10 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   // Show error alert if wallet error occurs
   useEffect(() => {
     if (error) {
-        alert(error); // Simple alert for MVP, can be replaced with a toast later
+        // 简单的错误提示，避免因为用户取消操作而频繁弹窗
+        if (!error.includes('User Rejected')) {
+            alert(error);
+        }
     }
   }, [error]);
 
@@ -146,7 +151,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                         <div className="flex flex-col items-end mr-1">
                             <span className="text-[10px] text-textMuted font-mono leading-none mb-0.5">X Layer</span>
                             <span className="text-xs font-bold text-accent leading-none">
-                                {balance ? parseFloat(balance.formatted).toFixed(3) : '0.00'} {balance?.symbol}
+                                {balance ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
                             </span>
                         </div>
                         <button 
@@ -155,14 +160,15 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                             title="Disconnect Wallet"
                         >
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse group-hover:bg-red-500"></span>
-                            {formattedAddress}
+                            {/* Format: Address (ConnectorName) */}
+                            {formattedAddress} {connectorName ? `(${connectorName})` : ''}
                             <LogOut className="w-3 h-3 ml-1" />
                         </button>
                     </div>
                 </div>
              ) : (
                 <button 
-                    onClick={() => connect()}
+                    onClick={() => connect()} // 调用无参 connect，执行 hooks.ts 中的默认策略
                     disabled={isConnecting}
                     className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait"
                 >
@@ -240,7 +246,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                     className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
                   >
                       <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                      {formattedAddress} (Disconnect)
+                      {formattedAddress} ({connectorName})
                   </button>
               ) : (
                   <button 
