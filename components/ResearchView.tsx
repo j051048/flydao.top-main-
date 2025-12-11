@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowLeft, Calendar, TrendingUp, AlertTriangle, Anchor, Target, Zap, ShieldAlert, BarChart3, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, Calendar, TrendingUp, AlertTriangle, Anchor, Target, Zap, ShieldAlert, BarChart3, ArrowRight, ChevronDown, ChevronRight } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 
 interface Props {
@@ -8,6 +8,8 @@ interface Props {
 
 const ResearchView: React.FC<Props> = ({ onBack }) => {
   const { t } = useAppContext();
+  // Global toggle state for the entire report body
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
 
   // Data extracted from the PDF "Monetary Policy Showdown"
   const reportData = {
@@ -186,7 +188,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         </div>
 
         {/* Report Hero Card */}
-        <div className="mb-10 p-1 rounded-3xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 shadow-2xl">
+        <div className="mb-6 p-1 rounded-3xl bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 shadow-2xl">
           <div className="bg-[#0a0a0a] rounded-[22px] p-6 md:p-10 relative overflow-hidden">
              {/* Background Pattern */}
              <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
@@ -220,44 +222,85 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
           </div>
         </div>
 
-        {/* Minimalist Card Flow */}
-        <div className="space-y-6 relative">
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-white/10 hidden md:block"></div>
-
-          {reportData.cards.map((card, index) => (
-            <div key={card.id} className="relative pl-0 md:pl-20 group">
-               {/* Timeline Node */}
-               <div className="absolute left-6 md:left-8 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-surface border-2 border-white/20 z-10 hidden md:block group-hover:border-accent group-hover:scale-125 transition-all"></div>
-
-               <div className="bg-surface backdrop-blur-md border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                  <div className="flex items-start gap-4">
-                     <div className={`shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 ${card.color}`}>
-                        <card.icon className="w-6 h-6" />
-                     </div>
-                     <div className="flex-1">
-                        <h3 className="text-lg font-bold text-textMain mb-4">{card.title}</h3>
-                        {card.content}
-                     </div>
-                  </div>
-               </div>
+        {/* Master Toggle Control */}
+        <div 
+          onClick={() => setIsContentExpanded(!isContentExpanded)}
+          className="flex items-center gap-3 mb-8 cursor-pointer group select-none bg-surface/30 p-3 rounded-xl border border-white/5 hover:bg-surface/60 transition-colors"
+        >
+            <div className={`w-8 h-8 rounded-full bg-surface border border-white/10 flex items-center justify-center transition-all duration-300 ${isContentExpanded ? 'bg-accent/20 border-accent text-accent rotate-0' : 'text-textMuted group-hover:bg-white/10 -rotate-90'}`}>
+                <ChevronDown className="w-5 h-5" />
             </div>
-          ))}
-
-          {/* Conclusion Card */}
-          <div className="relative pl-0 md:pl-20">
-             <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-white/10 rounded-2xl p-8 text-center">
-                <h3 className="text-xl font-bold text-textMain mb-2">结论：数字黄金的成熟礼</h3>
-                <p className="text-textMuted text-sm mb-6">
-                  2025年底的政策双刃剑，既是对比特币韧性的一次严峻考验，也是其作为宏观对冲资产角色的确立。拥抱结构性转变，驾驭宏观浪潮。
-                </p>
-                <div className="text-accent font-bold animate-pulse">
-                   FLYDAO — 洞察未来，决胜链上
-                </div>
-             </div>
-          </div>
-
+            <div className="flex flex-col">
+              <span className={`text-sm font-bold transition-colors ${isContentExpanded ? 'text-accent' : 'text-textMuted group-hover:text-textMain'}`}>
+                  {isContentExpanded ? '收起完整研报内容' : '展开完整研报内容'}
+              </span>
+              {!isContentExpanded && (
+                <span className="text-[10px] text-textMuted opacity-60">点击查看详细分析图表与策略</span>
+              )}
+            </div>
         </div>
+
+        {/* Minimalist Card Flow (Conditional Render) */}
+        {isContentExpanded && (
+          <div className="space-y-6 relative animate-in fade-in slide-in-from-top-4 duration-500">
+            {/* Vertical Timeline Line */}
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-white/10 hidden md:block"></div>
+
+            {reportData.cards.map((card, index) => {
+              return (
+                <div key={card.id} className="relative pl-0 md:pl-20 group">
+                  {/* Timeline Node */}
+                  <div className="absolute left-6 md:left-8 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-surface border-2 border-white/20 z-10 hidden md:block group-hover:border-accent group-hover:scale-125 transition-all"></div>
+
+                  <div className="bg-surface backdrop-blur-md border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                      <div className="flex items-start gap-4">
+                        <div className={`shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 ${card.color}`}>
+                            <card.icon className="w-6 h-6" />
+                        </div>
+                        
+                        <div className="flex-1">
+                            <h3 className="text-lg font-bold text-textMain mb-4">
+                                {card.title}
+                            </h3>
+                            {/* Card Content is always visible when section is expanded */}
+                            <div>
+                                {card.content}
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Conclusion Card */}
+            <div className="relative pl-0 md:pl-20 pb-12">
+              <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-white/10 rounded-2xl p-8 text-center">
+                  <h3 className="text-xl font-bold text-textMain mb-2">结论：数字黄金的成熟礼</h3>
+                  <p className="text-textMuted text-sm mb-6">
+                    2025年底的政策双刃剑，既是对比特币韧性的一次严峻考验，也是其作为宏观对冲资产角色的确立。拥抱结构性转变，驾驭宏观浪潮。
+                  </p>
+                  <div className="text-accent font-bold animate-pulse">
+                    FLYDAO — 洞察未来，决胜链上
+                  </div>
+              </div>
+              
+              {/* Bottom Collapse Trigger */}
+              <div 
+                  className="mt-8 flex justify-center"
+                  onClick={() => {
+                    setIsContentExpanded(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+              >
+                  <button className="flex items-center gap-2 text-xs text-textMuted hover:text-accent opacity-50 hover:opacity-100 transition-opacity px-4 py-2 rounded-full border border-transparent hover:border-white/5">
+                      <ChevronDown className="w-3 h-3 rotate-180" /> 收起研报
+                  </button>
+              </div>
+            </div>
+
+          </div>
+        )}
 
       </div>
     </div>
