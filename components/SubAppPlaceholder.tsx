@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
+import { useAccount } from 'wagmi';
 import InstructionModal from './InstructionModal';
+import PaymentModal from './PaymentModal';
 
 interface Props {
   type: SectionType;
@@ -11,7 +13,23 @@ interface Props {
 
 const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
   const { t, language } = useAppContext();
+  const { isConnected } = useAccount();
+  
+  // States for modals
   const [showInstructions, setShowInstructions] = useState(false);
+  
+  // Payment Logic State
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<{name: string, url: string} | null>(null);
+
+  const handleGameClick = (name: string, url: string) => {
+    if (!isConnected) {
+        alert("Please connect your wallet first to access the game.");
+        return;
+    }
+    setSelectedGame({ name, url });
+    setPaymentModalOpen(true);
+  };
 
   // If this is the APP section, render the special showcase layout
   if (type === SectionType.APP) {
@@ -189,11 +207,12 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               
               {/* GAME CARD 1: Coin Match */}
-              <a 
-                href="https://game1.flydao.top" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="group relative aspect-[9/14] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20"
+              <div 
+                onClick={() => handleGameClick(
+                  language === 'zh' ? '消消乐（币了个币）' : 'Crypto Match 3',
+                  'https://game1.flydao.top'
+                )}
+                className="group relative aspect-[9/14] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-emerald-400/20 to-teal-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -207,6 +226,11 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                     <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
                         <div className="absolute inset-0 bg-emerald-500 blur-2xl opacity-40"></div>
                         <Gamepad2 className="w-24 h-24 text-emerald-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Lock Icon Overlay indicating payment required */}
+                    <div className="absolute -top-2 -right-2 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center backdrop-blur border border-white/20 z-20 group-hover:bg-emerald-500 transition-colors">
+                        <Lock className="w-5 h-5 text-white" />
                     </div>
 
                     {/* Coins / Sparkles effects */}
@@ -224,10 +248,10 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                     <div className="flex items-center gap-2 text-xs text-emerald-300 font-mono">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                       Web3 Game
-                      <ExternalLink className="w-3 h-3" />
+                      <span className="text-yellow-400 font-bold ml-2">1000 FLY</span>
                     </div>
                  </div>
-              </a>
+              </div>
 
               {/* Placeholder Card for Future Games */}
               <div className="aspect-[9/14] rounded-3xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center p-6 opacity-50 hover:opacity-100 transition-opacity">
@@ -239,6 +263,16 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
 
            </div>
         </div>
+
+        {/* Payment Modal */}
+        {selectedGame && (
+          <PaymentModal 
+             isOpen={paymentModalOpen}
+             onClose={() => setPaymentModalOpen(false)}
+             gameName={selectedGame.name}
+             targetUrl={selectedGame.url}
+          />
+        )}
       </div>
     );
   }
