@@ -9,6 +9,7 @@ interface Props {
   onClose: () => void;
   gameName: string;
   targetUrl: string;
+  amount?: string;
 }
 
 // Minimal ERC20 ABI for transfer
@@ -28,9 +29,8 @@ const ERC20_ABI = [
 // Configuration
 const TOKEN_ADDRESS = '0xbcb009e1a796363629b958802cb622e53bfd7db9' as const; // FLYDAO Token
 const RECIPIENT_ADDRESS = '0xd86d0fed278cd70e2ba9bdb2b9811cede825a558' as const; // Treasury
-const PAYMENT_AMOUNT = '1000'; // 1000 Tokens
 
-const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl }) => {
+const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl, amount = '1000' }) => {
   const { address, chainId } = useAccount();
   const { switchChainAsync } = useSwitchChain();
   
@@ -80,7 +80,7 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
         functionName: 'transfer',
         args: [
           RECIPIENT_ADDRESS,
-          parseUnits(PAYMENT_AMOUNT, 18) // Assuming 18 decimals
+          parseUnits(amount, 18) // Assuming 18 decimals
         ],
         account: address,
         chain: xLayer,
@@ -92,6 +92,7 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
 
   const isWrongNetwork = chainId !== xLayer.id;
   const isLoading = isWritePending || isConfirming;
+  const formattedAmount = parseInt(amount).toLocaleString();
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -105,8 +106,8 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
                     <Lock className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-bold text-white tracking-wide">Unlock Game</h2>
-                  <p className="text-xs text-emerald-400/80">Pay to Earn Access</p>
+                  <h2 className="text-lg font-bold text-white tracking-wide">Unlock Access</h2>
+                  <p className="text-xs text-emerald-400/80">Pay to Enter</p>
                 </div>
             </div>
             {!isLoading && (
@@ -125,14 +126,14 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
             <div className="text-center">
               <h3 className="text-xl font-bold text-white mb-2">{gameName}</h3>
               <p className="text-sm text-gray-400">
-                To access this P2E game, you need to pay a one-time entry fee to the DAO Treasury.
+                To access this content, you need to pay a one-time entry fee to the DAO Treasury.
               </p>
             </div>
 
             <div className="bg-white/5 rounded-xl p-4 border border-white/10 flex flex-col items-center justify-center gap-2">
                <span className="text-xs text-gray-500 uppercase tracking-widest">Entry Fee</span>
                <div className="text-3xl font-black text-emerald-400 font-mono">
-                 1,000 FLY
+                 {formattedAmount} FLY
                </div>
                <span className="text-xs text-gray-500">on X Layer Network</span>
             </div>
@@ -179,7 +180,7 @@ const PaymentModal: React.FC<Props> = ({ isOpen, onClose, gameName, targetUrl })
               ) : isWrongNetwork ? (
                  <>Switch to X Layer</>
               ) : (
-                 <>Pay 1,000 FLY <ArrowRight className="w-4 h-4" /></>
+                 <>Pay {formattedAmount} FLY <ArrowRight className="w-4 h-4" /></>
               )}
             </button>
             
