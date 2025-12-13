@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock, Box } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
 import { useAccount } from 'wagmi';
@@ -170,13 +170,44 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                  </div>
               </a>
 
-              {/* Placeholder Card for Future Apps */}
-              <div className="aspect-[9/16] rounded-3xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center p-6 opacity-50 hover:opacity-100 transition-opacity">
-                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-                    <span className="text-2xl text-textMuted">+</span>
+              {/* APP CARD 4: 3D Miniature Prompt Master */}
+              <a 
+                href="https://app4.flydao.top" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20"
+              >
+                 {/* Background Gradient */}
+                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-400/20 to-violet-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                 
+                 {/* 3D Icon Composition */}
+                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 flex items-center justify-center">
+                    {/* Circle Backing */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md"></div>
+                    
+                    {/* Stylized Box Icon */}
+                    <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute inset-0 bg-indigo-500 blur-2xl opacity-40"></div>
+                        <Box className="w-24 h-24 text-indigo-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Decorative elements */}
+                    <div className="absolute top-4 left-4 w-4 h-4 bg-violet-400 rounded-sm rotate-12 animate-float"></div>
+                    <div className="absolute bottom-6 right-6 w-3 h-3 bg-white rounded-full animate-pulse"></div>
                  </div>
-                 <p className="text-sm text-textMuted font-mono">Coming Soon</p>
-              </div>
+
+                 {/* Text Info */}
+                 <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent pt-20">
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {language === 'zh' ? '3D微缩提示词生成大师' : '3D Miniature Prompt Gen'}
+                    </h3>
+                    <div className="flex items-center gap-2 text-xs text-indigo-300 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                      Vercel App
+                      <ExternalLink className="w-3 h-3" />
+                    </div>
+                 </div>
+              </a>
 
            </div>
         </div>
