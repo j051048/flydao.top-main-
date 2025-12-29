@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock, Box, Mountain, Sprout } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock, Box, Mountain, Sprout, TrendingUp } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
 import { useAccount } from 'wagmi';
@@ -304,6 +304,45 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                     </div>
                  </div>
               </div>
+
+              {/* APP CARD 7: K-Line Analysis Master (Free) */}
+              <a 
+                href="https://kx.flydao.top" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
+              >
+                 {/* Background Gradient */}
+                 <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/40 to-slate-900/60 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                 
+                 {/* 3D Icon Composition */}
+                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 flex items-center justify-center">
+                    {/* Circle Backing */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md"></div>
+                    
+                    {/* Icon */}
+                    <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute inset-0 bg-cyan-500 blur-2xl opacity-40"></div>
+                        <TrendingUp className="w-24 h-24 text-cyan-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Decorative Candles */}
+                    <div className="absolute top-8 right-6 w-2 h-8 bg-green-500 rounded-sm animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                    <div className="absolute bottom-8 left-6 w-2 h-6 bg-red-500 rounded-sm animate-pulse delay-75 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                 </div>
+
+                 {/* Text Info */}
+                 <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent pt-20">
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {language === 'zh' ? 'K线分析大师' : 'K-Line Analysis Master'}
+                    </h3>
+                    <div className="flex items-center gap-2 text-xs text-cyan-300 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                      Web3 App
+                      <span className="text-green-400 font-bold ml-2">FREE</span>
+                    </div>
+                 </div>
+              </a>
 
            </div>
         </div>
