@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle, RefreshCw } from 'lucide-react';
+import { Menu, X, Rocket, Globe, Palette, Wallet, LogOut, Loader2, AlertCircle, RefreshCw, Sun, Moon, Check } from 'lucide-react';
 import { formatUnits } from 'viem';
 import { xLayer } from 'viem/chains';
 import { NAV_ITEMS, APP_NAME } from '../constants';
-import { SectionType, Theme } from '../types';
+import { SectionType, ThemeColor } from '../types';
 import { useAppContext } from '../contexts/AppContext';
 import { useWallet } from '../web3/hooks';
 
@@ -12,13 +12,25 @@ interface NavigationProps {
   onNavigate: (section: SectionType) => void;
 }
 
+const THEME_COLORS: { id: ThemeColor; color: string }[] = [
+  { id: 'blue', color: '#3b82f6' },
+  { id: 'purple', color: '#a855f7' },
+  { id: 'green', color: '#22c55e' },
+  { id: 'red', color: '#ef4444' },
+  { id: 'orange', color: '#f97316' },
+  { id: 'pink', color: '#ec4899' },
+  { id: 'cyan', color: '#06b6d4' },
+  { id: 'yellow', color: '#eab308' },
+];
+
 const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) => {
-  const { t, language, setLanguage, theme, setTheme } = useAppContext();
+  const { t, language, setLanguage, themeMode, toggleThemeMode, themeColor, setThemeColor } = useAppContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showThemeMenu, setShowThemeMenu] = useState(false);
   
   // Web3 Integration
+  const wallet = useWallet();
   const { 
     isConnected, 
     formattedAddress, 
@@ -30,7 +42,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
     balance,
     chainId,
     switchChain
-  } = useWallet();
+  } = wallet || {}; // Safe destructure in case hook fails slightly
 
   const isWrongNetwork = isConnected && chainId !== xLayer.id;
 
@@ -45,7 +57,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
   // Show error alert if wallet error occurs
   useEffect(() => {
     if (error) {
-        if (!error.includes('User Rejected')) {
+        if (typeof error === 'string' && !error.includes('User Rejected')) {
             alert(error);
         }
     }
@@ -121,20 +133,47 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                 <button 
                   onClick={() => setShowThemeMenu(!showThemeMenu)}
                   className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:bg-white/5 transition-all"
+                  title="Theme Settings"
                 >
                   <Palette className="w-4 h-4" />
                 </button>
                 {showThemeMenu && (
-                  <div className="absolute top-10 right-0 glass-panel p-2 rounded-xl flex flex-col gap-2 min-w-[40px] items-center animate-in fade-in zoom-in duration-200">
-                    {(['black', 'white', 'pink', 'yellow'] as Theme[]).map((t) => (
-                      <button
-                        key={t}
-                        onClick={() => { setTheme(t); setShowThemeMenu(false); }}
-                        className={`w-6 h-6 rounded-full border-2 transition-transform hover:scale-110 ${theme === t ? 'border-accent' : 'border-transparent'}`}
-                        style={{ backgroundColor: t === 'black' ? '#030014' : t === 'white' ? '#f8fafc' : t === 'pink' ? '#1a0510' : '#121200' }}
-                        title={t}
-                      />
-                    ))}
+                  <div className="absolute top-10 right-0 glass-panel p-4 rounded-xl flex flex-col gap-4 min-w-[240px] animate-in fade-in zoom-in duration-200 shadow-2xl z-50">
+                    
+                    {/* Mode Toggle */}
+                    <div className="flex items-center justify-between">
+                        <span className="text-sm text-textMuted font-bold">Mode</span>
+                        <button 
+                            onClick={toggleThemeMode}
+                            className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:border-accent/50 transition-colors"
+                        >
+                            {themeMode === 'dark' ? (
+                                <><Moon className="w-3 h-3 text-accent" /> <span className="text-xs text-textMain">Dark</span></>
+                            ) : (
+                                <><Sun className="w-3 h-3 text-yellow-500" /> <span className="text-xs text-textMain">Light</span></>
+                            )}
+                        </button>
+                    </div>
+
+                    <div className="h-px bg-white/10 w-full"></div>
+
+                    {/* Colors */}
+                    <div>
+                        <span className="text-sm text-textMuted font-bold mb-3 block">Accent Color</span>
+                        <div className="grid grid-cols-4 gap-3">
+                            {THEME_COLORS.map((tc) => (
+                                <button
+                                    key={tc.id}
+                                    onClick={() => { setThemeColor(tc.id); }}
+                                    className={`w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center ${themeColor === tc.id ? 'border-textMain' : 'border-transparent'}`}
+                                    style={{ backgroundColor: tc.color }}
+                                    title={tc.id}
+                                >
+                                    {themeColor === tc.id && <Check className="w-4 h-4 text-white drop-shadow-md" />}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                   </div>
                 )}
              </div>
@@ -153,7 +192,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                 <div className="flex items-center gap-2">
                     {isWrongNetwork ? (
                         <button 
-                            onClick={() => switchChain(xLayer.id)}
+                            onClick={() => switchChain && switchChain(xLayer.id)}
                             className="bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-400 px-4 py-2 rounded-full font-mono text-xs flex items-center gap-2 transition-all animate-pulse whitespace-nowrap"
                         >
                             <AlertCircle className="w-3 h-3" />
@@ -166,7 +205,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                             <div className="flex flex-col items-end space-y-0.5">
                                 <span className="text-[10px] font-bold text-textMuted uppercase tracking-wider leading-none">X Layer</span>
                                 <span className="text-xs font-mono font-bold text-accent leading-none whitespace-nowrap">
-                                    {balance ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
+                                    {balance && balance.value ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
                                 </span>
                             </div>
 
@@ -175,7 +214,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
 
                             {/* Wallet Button */}
                             <button 
-                                onClick={() => disconnect()}
+                                onClick={() => disconnect && disconnect()}
                                 className="group flex items-center gap-2 pl-1 pr-2 py-1 rounded-full hover:bg-white/5 transition-all"
                                 title="Click to disconnect"
                             >
@@ -194,7 +233,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                 </div>
              ) : (
                 <button 
-                    onClick={() => connect()} 
+                    onClick={() => connect && connect()} 
                     disabled={isConnecting}
                     className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait whitespace-nowrap"
                 >
@@ -253,23 +292,40 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
               </button>
             ))}
             
-            <div className="flex gap-4 p-4 border-t border-white/5">
-                <span className="text-sm text-textMuted">Theme:</span>
-                {(['black', 'white', 'pink', 'yellow'] as Theme[]).map((t) => (
-                    <button
-                    key={t}
-                    onClick={() => setTheme(t)}
-                    className={`w-6 h-6 rounded-full border-2 ${theme === t ? 'border-accent' : 'border-transparent'}`}
-                    style={{ backgroundColor: t === 'black' ? '#030014' : t === 'white' ? '#f8fafc' : t === 'pink' ? '#1a0510' : '#121200' }}
-                    />
-                ))}
+            <div className="p-4 border-t border-white/5 space-y-4">
+                <div className="flex items-center justify-between">
+                    <span className="text-sm text-textMuted">Appearance</span>
+                    <button 
+                        onClick={toggleThemeMode}
+                        className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
+                    >
+                        {themeMode === 'dark' ? (
+                            <><Moon className="w-3 h-3 text-accent" /> <span className="text-xs text-textMain">Dark</span></>
+                        ) : (
+                            <><Sun className="w-3 h-3 text-yellow-500" /> <span className="text-xs text-textMain">Light</span></>
+                        )}
+                    </button>
+                </div>
+                
+                <div className="grid grid-cols-8 gap-2">
+                    {THEME_COLORS.map((tc) => (
+                        <button
+                            key={tc.id}
+                            onClick={() => setThemeColor(tc.id)}
+                            className={`w-6 h-6 rounded-full border-2 ${themeColor === tc.id ? 'border-textMain' : 'border-transparent'} flex items-center justify-center`}
+                            style={{ backgroundColor: tc.color }}
+                        >
+                             {themeColor === tc.id && <Check className="w-3 h-3 text-white" />}
+                        </button>
+                    ))}
+                </div>
             </div>
 
             <div className="px-3 py-4">
               {isConnected ? (
                   isWrongNetwork ? (
                     <button 
-                        onClick={() => switchChain(xLayer.id)}
+                        onClick={() => switchChain && switchChain(xLayer.id)}
                         className="w-full bg-red-500/20 border border-red-500/50 text-red-400 px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
                     >
                         <AlertCircle className="w-4 h-4" />
@@ -277,7 +333,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
                     </button>
                   ) : (
                     <button 
-                        onClick={() => disconnect()}
+                        onClick={() => disconnect && disconnect()}
                         className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
                     >
                         <span className="w-2 h-2 rounded-full bg-green-500"></span>
@@ -287,7 +343,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
               ) : (
                   <button 
                     onClick={() => {
-                        connect();
+                        if (connect) connect();
                         setIsMobileMenuOpen(false);
                     }}
                     className="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"

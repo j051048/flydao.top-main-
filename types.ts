@@ -12,7 +12,8 @@ export enum SectionType {
 }
 
 export type Language = 'en' | 'zh';
-export type Theme = 'black' | 'white' | 'pink' | 'yellow';
+export type ThemeMode = 'light' | 'dark';
+export type ThemeColor = 'blue' | 'purple' | 'green' | 'red' | 'orange' | 'pink' | 'cyan' | 'yellow';
 
 export interface NavItem {
   id: SectionType;
