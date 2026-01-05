@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock, Box, Mountain, Sprout, TrendingUp, Stethoscope, ShoppingBag } from 'lucide-react';
+import { ExternalLink, ArrowLeft, CloudSun, Shirt, Camera, Sparkles, BookOpen, Gamepad2, Coins, Lock, Box, Mountain, Sprout, TrendingUp, Stethoscope, ShoppingBag, Zap } from 'lucide-react';
 import { SectionType } from '../types';
 import { useAppContext } from '../contexts/AppContext';
 import { useAccount } from 'wagmi';
@@ -436,6 +436,54 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                       <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                       Web3 App
                       <span className="text-blue-400 font-bold ml-2">10,000 FLY</span>
+                    </div>
+                 </div>
+              </div>
+
+               {/* APP CARD 10: AI PC Boost Master (Paid) */}
+              <div 
+                onClick={() => handleGameClick(
+                  language === 'zh' ? 'AI电脑优化大师' : 'AI PC Boost Master',
+                  'https://boost.flydao.top',
+                  '1000'
+                )}
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 cursor-pointer"
+              >
+                 {/* Background Gradient */}
+                 <div className="absolute inset-0 bg-gradient-to-b from-orange-400/20 to-red-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                 
+                 {/* 3D Icon Composition */}
+                 <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 flex items-center justify-center">
+                    {/* Circle Backing */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/20 backdrop-blur-md"></div>
+                    
+                    {/* Stylized Icon */}
+                    <div className="relative z-10 transform group-hover:scale-110 transition-transform duration-500">
+                        <div className="absolute inset-0 bg-orange-500 blur-2xl opacity-40"></div>
+                        <Zap className="w-24 h-24 text-orange-300 drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]" strokeWidth={1.5} />
+                    </div>
+
+                    {/* Lock Icon Overlay indicating payment required */}
+                    <div className="absolute -top-2 -right-2 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center backdrop-blur border border-white/20 z-20 group-hover:bg-orange-500 transition-colors">
+                        <Lock className="w-5 h-5 text-white" />
+                    </div>
+
+                    {/* Coins / Sparkles effects */}
+                     <div className="absolute top-0 right-4 w-6 h-6 bg-yellow-400 rounded-full animate-bounce shadow-[0_0_10px_rgba(250,204,21,0.8)] flex items-center justify-center border border-yellow-200">
+                        <Coins className="w-4 h-4 text-yellow-700" />
+                     </div>
+                     <div className="absolute bottom-4 left-4 w-4 h-4 bg-yellow-400 rounded-full animate-bounce delay-100 shadow-[0_0_10px_rgba(250,204,21,0.8)] border border-yellow-200"></div>
+                 </div>
+
+                 {/* Text Info */}
+                 <div className="absolute bottom-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent pt-20">
+                    <h3 className="text-xl font-bold text-white mb-1">
+                      {language === 'zh' ? 'AI电脑优化大师' : 'AI PC Boost Master'}
+                    </h3>
+                    <div className="flex items-center gap-2 text-xs text-orange-300 font-mono">
+                      <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse"></span>
+                      Web3 App
+                      <span className="text-orange-400 font-bold ml-2">1,000 FLY</span>
                     </div>
                  </div>
               </div>
