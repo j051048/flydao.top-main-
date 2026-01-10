@@ -16,55 +16,70 @@
             colors: {
               background: 'var(--bg-color)',
               surface: 'var(--surface-color)',
+              surfaceHighlight: 'var(--surface-highlight)',
               primary: 'var(--primary-color)',
               secondary: 'var(--secondary-color)',
               accent: 'var(--accent-color)',
               textMain: 'var(--text-main)',
               textMuted: 'var(--text-muted)',
+              borderDim: 'var(--border-color)',
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
               mono: ['JetBrains Mono', 'monospace'],
+              display: ['Inter', 'sans-serif'],
             },
             animation: {
-              'spin-slow': 'spin 10s linear infinite',
-              'pulse-fast': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'float': 'float 6s ease-in-out infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'pulse-fast': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 8s ease-in-out infinite',
+              'glow': 'glow 4s ease-in-out infinite alternate',
             },
             keyframes: {
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-20px)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              glow: {
+                '0%': { opacity: 0.5, filter: 'blur(20px)' },
+                '100%': { opacity: 0.8, filter: 'blur(25px)' },
               }
+            },
+            backgroundImage: {
+              'glass-gradient': 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.00) 100%)',
+              'glow-conic': 'conic-gradient(from 180deg at 50% 50%, #2a8af6 0deg, #a853ba 180deg, #e92a67 360deg)',
             }
           },
         },
       }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-      /* THEME VARIABLES */
+      /* NEOVISION 2026 THEME VARIABLES */
       :root {
-        --bg-color: #f8fafc;
-        --surface-color: rgba(255, 255, 255, 0.85);
-        --text-main: #0f172a;
-        --text-muted: #475569;
-        --border-color: rgba(0, 0, 0, 0.1);
-        --primary-color: #3b82f6;
-        --secondary-color: #6366f1;
-        --accent-color: #0ea5e9;
+        --bg-color: #f0f2f5; /* Slightly darker light bg for better card contrast */
+        --surface-color: rgba(255, 255, 255, 0.85); /* More opaque in light mode */
+        --surface-highlight: #ffffff;
+        --text-main: #111827; /* Darker black for main text */
+        --text-muted: #52525b; /* Darker gray for readable subtitles */
+        --border-color: rgba(0, 0, 0, 0.1); /* Darker border for visibility */
+        --primary-color: #2563eb;
+        --secondary-color: #7c3aed;
+        --accent-color: #0891b2;
       }
 
       .dark {
-        --bg-color: #030014;
-        --surface-color: rgba(15, 23, 42, 0.6);
-        --text-main: #ffffff;
-        --text-muted: #94a3b8;
-        --border-color: rgba(255, 255, 255, 0.1);
+        --bg-color: #050507; /* Deep Void */
+        --surface-color: rgba(20, 20, 25, 0.4); /* Glass Dark */
+        --surface-highlight: rgba(255, 255, 255, 0.03);
+        --text-main: #ededed; /* Off-white for better readability */
+        --text-muted: #888899; /* Cool gray */
+        --border-color: rgba(255, 255, 255, 0.08); /* Ultra subtle border */
       }
 
-      .theme-blue { --primary-color: #3b82f6; --secondary-color: #6366f1; --accent-color: #0ea5e9; }
-      .theme-purple { --primary-color: #a855f7; --secondary-color: #d946ef; --accent-color: #8b5cf6; }
+      /* Dynamic Theme Overrides */
+      .theme-blue { --primary-color: #3b82f6; --secondary-color: #6366f1; --accent-color: #38bdf8; }
+      .theme-purple { --primary-color: #a855f7; --secondary-color: #d946ef; --accent-color: #c084fc; }
       .theme-green { --primary-color: #22c55e; --secondary-color: #10b981; --accent-color: #4ade80; }
       .theme-red { --primary-color: #ef4444; --secondary-color: #f43f5e; --accent-color: #f87171; }
       .theme-orange { --primary-color: #f97316; --secondary-color: #ea580c; --accent-color: #fbbf24; }
@@ -77,18 +92,48 @@
         color: var(--text-main);
         font-family: 'Inter', sans-serif;
         overflow-x: hidden;
-        transition: background-color 0.5s ease, color 0.5s ease;
+        transition: background-color 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.5s ease;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      ::-webkit-scrollbar { width: 8px; }
-      ::-webkit-scrollbar-track { background: var(--bg-color); }
-      ::-webkit-scrollbar-thumb { background: var(--surface-color); border-radius: 4px; }
+      /* Custom Scrollbar - Slim & Minimal */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(155, 155, 155, 0.2); border-radius: 10px; }
       ::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+
+      /* Glass Morphism Utilities */
       .glass-panel {
         background: var(--surface-color);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .glass-card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.0) 100%);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid var(--border-color);
+        box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      .text-glow {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+      
+      .noise-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.035;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
       }
     </style>
 <script type="importmap">

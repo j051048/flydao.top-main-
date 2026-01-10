@@ -39,7 +39,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
            <div className="flex items-center gap-4 mb-8">
               <button 
                 onClick={onBack}
-                className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all"
+                className="w-10 h-10 rounded-full bg-surface border border-borderDim flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -63,7 +63,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://app1.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-accent/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-accent/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
               >
                  {/* Pixar Style Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/20 to-blue-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -97,7 +97,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://app2.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-purple-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-purple-400/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20"
               >
                  {/* Pixar Style Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-purple-400/20 to-pink-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -136,7 +136,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://app3.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-rose-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-rose-500/20"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-rose-400/20 to-orange-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -175,7 +175,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://app4.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-indigo-500/20"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-indigo-400/20 to-violet-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -216,7 +216,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://app5.flydao.top',
                   '100000'
                 )}
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/20 cursor-pointer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-amber-400/20 to-orange-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -264,7 +264,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://zwys.flydao.top',
                   '1000'
                 )}
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-green-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20 cursor-pointer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-green-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-green-400/20 to-emerald-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -310,7 +310,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://kx.flydao.top" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/20"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/40 to-slate-900/60 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -351,7 +351,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://aizy.flydao.top',
                   '1000'
                 )}
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-red-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/20 cursor-pointer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-red-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-red-400/20 to-pink-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -399,7 +399,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://dsct.flydao.top',
                   '10000'
                 )}
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 cursor-pointer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-blue-400/20 to-indigo-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -447,7 +447,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://boost.flydao.top',
                   '1000'
                 )}
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 cursor-pointer"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-orange-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-orange-400/20 to-red-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -493,7 +493,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                 href="https://yss.flydao.top/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-pink-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/20"
+                className="group relative aspect-[9/16] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-pink-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-pink-500/20"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-pink-400/20 to-rose-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -554,7 +554,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
            <div className="flex items-center gap-4 mb-8">
               <button 
                 onClick={onBack}
-                className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all"
+                className="w-10 h-10 rounded-full bg-surface border border-borderDim flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
@@ -573,7 +573,7 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
                   'https://game1.flydao.top',
                   '1000'
                 )}
-                className="group relative aspect-[9/14] rounded-3xl overflow-hidden bg-surface border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
+                className="group relative aspect-[9/14] rounded-3xl overflow-hidden bg-surface border border-borderDim hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-emerald-500/20 cursor-pointer"
               >
                  {/* Background Gradient */}
                  <div className="absolute inset-0 bg-gradient-to-b from-emerald-400/20 to-teal-600/20 opacity-50 group-hover:opacity-100 transition-opacity"></div>
@@ -615,8 +615,8 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
               </div>
 
               {/* Placeholder Card for Future Games */}
-              <div className="aspect-[9/14] rounded-3xl border border-dashed border-white/10 bg-white/5 flex flex-col items-center justify-center text-center p-6 opacity-50 hover:opacity-100 transition-opacity">
-                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
+              <div className="aspect-[9/14] rounded-3xl border border-dashed border-borderDim bg-surface/50 flex flex-col items-center justify-center text-center p-6 opacity-50 hover:opacity-100 transition-opacity">
+                 <div className="w-16 h-16 rounded-full bg-surface border border-borderDim flex items-center justify-center mb-4">
                     <span className="text-2xl text-textMuted">+</span>
                  </div>
                  <p className="text-sm text-textMuted font-mono">Coming Soon</p>
@@ -677,23 +677,23 @@ const SubAppPlaceholder: React.FC<Props> = ({ type, onBack }) => {
     <div className={`min-h-screen bg-background pt-24 px-4 pb-12 flex flex-col transition-colors duration-500`}>
       <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col">
         {/* Mock Browser Bar */}
-        <div className="w-full h-12 bg-surface rounded-t-xl border border-white/10 flex items-center px-4 gap-4 mb-8">
+        <div className="w-full h-12 bg-surface rounded-t-xl border border-borderDim flex items-center px-4 gap-4 mb-8">
           <div className="flex gap-2">
             <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
             <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
             <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
           </div>
-          <div className="flex-1 bg-black/20 h-8 rounded flex items-center justify-center text-xs font-mono text-gray-500">
+          <div className="flex-1 bg-black/5 dark:bg-black/20 h-8 rounded flex items-center justify-center text-xs font-mono text-gray-500">
             https://www.{config.url}
           </div>
         </div>
 
         {/* Content Simulation */}
-        <div className="flex-grow flex flex-col items-center justify-center text-center p-12 border border-dashed border-white/10 rounded-b-xl rounded-t-sm bg-surface/50">
+        <div className="flex-grow flex flex-col items-center justify-center text-center p-12 border border-dashed border-borderDim rounded-b-xl rounded-t-sm bg-surface/50">
           <h1 className="text-4xl md:text-6xl font-black text-textMain mb-4">{config.title}</h1>
           <p className="text-xl text-textMuted mb-8 max-w-2xl">{config.sub}</p>
           
-          <div className="bg-surface p-6 rounded-lg max-w-lg text-left border border-white/5">
+          <div className="bg-surface p-6 rounded-lg max-w-lg text-left border border-borderDim">
             <h4 className="text-textMain font-bold mb-2 flex items-center gap-2">
               <ExternalLink className="w-4 h-4" /> {t.placeholder.note_title}
             </h4>

@@ -17,18 +17,18 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={onBack}
-            className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all group"
+            className="w-10 h-10 rounded-full bg-surface border border-borderDim flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all group"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           </button>
-          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-white/5">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-borderDim">
              <FileText className="w-4 h-4 text-accent" />
              <span className="text-xs font-mono text-textMuted uppercase tracking-wider">Whitepaper v2.0</span>
           </div>
         </div>
 
         {/* Document Container */}
-        <div className="bg-surface backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+        <div className="bg-surface backdrop-blur-xl border border-borderDim rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
           {/* Decorative Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] pointer-events-none"></div>
@@ -47,7 +47,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 
             {/* Section 1: Vision */}
             <section>
-              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                 <Rocket className="w-6 h-6 text-purple-400" />
                 项目愿景：重塑 Web3 的社区星河
               </h2>
@@ -69,7 +69,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 
             {/* Section 2: Core Mechanism */}
             <section>
-              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                 <Flame className="w-6 h-6 text-red-500" />
                 核心机制：返佣永动机，通缩即正义
               </h2>
@@ -77,10 +77,10 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-red-500/20 rounded-full blur-[40px] group-hover:scale-150 transition-transform duration-700"></div>
                 
                 <p className="text-center text-sm uppercase tracking-widest text-textMuted mb-2">官方统一返佣码</p>
-                <div className="text-5xl md:text-6xl font-black text-center text-white tracking-widest font-mono mb-2 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">
+                <div className="text-5xl md:text-6xl font-black text-center text-textMain dark:text-white tracking-widest font-mono mb-2 drop-shadow-[0_0_15px_rgba(239,68,68,0.5)]">
                   FLYDAO
                 </div>
-                <p className="text-center text-sm text-red-300 font-bold">（最高 40% 手续费返佣，全球适用）</p>
+                <p className="text-center text-sm text-red-500 dark:text-red-300 font-bold">（最高 40% 手续费返佣，全球适用）</p>
               </div>
               
               <div className="grid gap-4">
@@ -89,20 +89,20 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
                   '金库资金全额公开回购 FLY 代币，注入流动性并稳定地板',
                   '回购代币 100% 立即销毁（黑洞地址），铸就铁律通缩——流通量永不复增'
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 p-4 rounded-lg bg-white/5 border border-white/5 hover:border-red-500/30 transition-colors">
+                  <div key={i} className="flex gap-4 p-4 rounded-lg bg-black/5 dark:bg-white/5 border border-borderDim hover:border-red-500/30 transition-colors">
                     <div className="shrink-0 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-400 font-bold text-xs mt-0.5">{i + 1}</div>
                     <span className="text-textMuted text-sm leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
-              <p className="mt-6 text-textMuted text-sm bg-surface p-4 rounded border border-white/10">
+              <p className="mt-6 text-textMuted text-sm bg-surface p-4 rounded border border-borderDim">
                  🔥 <span className="text-textMain font-bold">已于 2025 年 12 月 9 日完成首笔销毁</span>。这不是短期炒作，而是指数级飞轮：用户越多，返佣越多，烧币越猛，FLY 价值指数飙升！
               </p>
             </section>
 
             {/* Section 3: Token Info */}
             <section>
-              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                 <ShieldCheck className="w-6 h-6 text-green-400" />
                 代币信息：公平铸就，赋能无限
               </h2>
@@ -112,7 +112,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
                 <InfoCard label="发行方式" value="100% 公平 Mint" desc="@starsmint.xyz (零预挖、无 VC)" />
                 <InfoCard label="总供应量" value="10 亿枚" desc="80% 流动性, 20% 社区空投+销毁" />
                 <InfoCard label="交易税收" value="0 税" desc="透明到原子级" />
-                <div className="bg-background/40 p-5 rounded-xl border border-white/5 col-span-1 md:col-span-2 md:col-start-1">
+                <div className="bg-background/40 p-5 rounded-xl border border-borderDim col-span-1 md:col-span-2 md:col-start-1">
                   <div className="text-xs text-textMuted uppercase mb-1 tracking-wider">合约地址</div>
                   <div className="text-sm md:text-base font-mono text-accent break-all flex items-center gap-2">
                     0xbcb009e1a796363629b958802cb622e53bfd7db9
@@ -123,11 +123,11 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 
             {/* Section 4: Community Gene */}
             <section>
-               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                  <Users className="w-6 h-6 text-blue-400" />
                  社区基因：6 年 AI+Web3 硬核堡垒
                </h2>
-               <div className="bg-gradient-to-r from-blue-900/20 to-transparent p-6 rounded-xl border-l-4 border-blue-500 mb-6">
+               <div className="bg-gradient-to-r from-blue-900/10 to-transparent p-6 rounded-xl border-l-4 border-blue-500 mb-6">
                  <p className="text-textMain font-medium mb-2">成立于 2019 年 8 月</p>
                  <p className="text-textMuted text-sm">FLYDAO 投研社区已凝聚 500+ Web3 先锋：链上交易大神、AI 架构师、宏观分析师。</p>
                </div>
@@ -152,7 +152,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 
             {/* Section 5: Token Utility (NEW) */}
             <section>
-              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+              <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                 <Lock className="w-6 h-6 text-yellow-400" />
                 FLY 代币赋能：实用燃料，生态闭环
               </h2>
@@ -160,40 +160,40 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
                 FLY 不再是纯 meme，而是 Web3+AI 生态的「通用通行证」。未来，所有社区应用需 FLY 支付解锁：
               </p>
               <div className="grid md:grid-cols-3 gap-4 mb-6">
-                  <div className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-yellow-400/30 transition-colors">
-                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-400">
+                  <div className="p-4 bg-black/5 dark:bg-white/5 rounded-xl border border-borderDim hover:border-yellow-400/30 transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-500 dark:text-yellow-400">
                           <Zap className="w-5 h-5" />
                       </div>
                       <h3 className="font-bold text-textMain mb-2">AI 工具付费墙</h3>
                       <p className="text-xs text-textMuted leading-relaxed">AI 影视生成器、小程序部署、游戏模组，支付 FLY 即可使用（最低门槛）。</p>
                   </div>
-                  <div className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-yellow-400/30 transition-colors">
-                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-400">
+                  <div className="p-4 bg-black/5 dark:bg-white/5 rounded-xl border border-borderDim hover:border-yellow-400/30 transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-500 dark:text-yellow-400">
                           <Star className="w-5 h-5" />
                       </div>
                       <h3 className="font-bold text-textMain mb-2">高级 Alpha 访问</h3>
                       <p className="text-xs text-textMuted leading-relaxed">独家投研报告、实时行情预测、AI 驱动的投资模拟器——FLY 买单，终身订阅。</p>
                   </div>
-                  <div className="p-4 bg-white/5 rounded-xl border border-white/5 hover:border-yellow-400/30 transition-colors">
-                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-400">
+                  <div className="p-4 bg-black/5 dark:bg-white/5 rounded-xl border border-borderDim hover:border-yellow-400/30 transition-colors">
+                      <div className="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center mb-3 text-yellow-500 dark:text-yellow-400">
                           <Target className="w-5 h-5" />
                       </div>
                       <h3 className="font-bold text-textMain mb-2">NFT 铸造与空投</h3>
                       <p className="text-xs text-textMuted leading-relaxed">FLY Alpha Pass NFT 需 FLY 铸造，解锁 VIP 权益。</p>
                   </div>
               </div>
-              <div className="p-4 bg-surface rounded-lg border border-white/10 text-sm text-textMuted">
+              <div className="p-4 bg-surface rounded-lg border border-borderDim text-sm text-textMuted">
                  <span className="text-textMain font-bold">💰 经济循环：</span> 收取的 FLY 100% 循环赋能：50% 立即回购销毁（强化通缩），50% 注入运营金库（奖励空投、创作者、DAO 提案）。支付即贡献，持有即增值！
               </div>
             </section>
 
              {/* Section 6: Roadmap */}
             <section>
-               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                  <Target className="w-6 h-6 text-pink-400" />
                  未来蓝图：从 meme 到帝国 (2026)
                </h2>
-               <div className="space-y-6 relative border-l border-white/10 ml-3 pl-8">
+               <div className="space-y-6 relative border-l border-borderDim ml-3 pl-8">
                  <RoadmapItem 
                     quarter="Q1 2026" 
                     title="DAO 化与支付网关" 
@@ -222,7 +222,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 
              {/* Section 7: Why 2025 (NEW) */}
              <section>
-               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+               <h2 className="text-2xl font-bold text-textMain mb-6 flex items-center gap-3 border-b border-borderDim pb-4">
                  <Star className="w-6 h-6 text-accent" />
                  为什么 FLYDAO 是 2025 终极叙事？
                </h2>
@@ -273,7 +273,7 @@ const WhitepaperView: React.FC<Props> = ({ onBack }) => {
 };
 
 const InfoCard = ({ label, value, desc }: { label: string, value: string, desc?: string }) => (
-    <div className="bg-background/40 p-5 rounded-xl border border-white/5">
+    <div className="bg-background/40 p-5 rounded-xl border border-borderDim">
         <div className="text-xs text-textMuted uppercase mb-1 tracking-wider">{label}</div>
         <div className="text-lg font-bold text-textMain mb-1">{value}</div>
         {desc && <div className="text-xs text-textMuted">{desc}</div>}
@@ -290,7 +290,7 @@ const RoadmapItem = ({ quarter, title, desc }: { quarter: string, title: string,
 );
 
 const ReasonCard = ({ title, desc }: { title: string, desc: string }) => (
-    <div className="p-5 bg-surface border border-white/5 rounded-xl hover:bg-white/5 transition-colors">
+    <div className="p-5 bg-surface border border-borderDim rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
         <h4 className="text-textMain font-bold mb-2 flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent"></span>
             {title}

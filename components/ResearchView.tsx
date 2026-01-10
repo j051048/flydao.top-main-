@@ -40,13 +40,13 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
                 </div>
               </div>
               <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-lg">
-                <div className="text-yellow-400 font-bold mb-2 flex items-center gap-2">
+                <div className="text-yellow-500 dark:text-yellow-400 font-bold mb-2 flex items-center gap-2">
                   <Zap className="w-4 h-4" /> 机遇 (Fed)
                 </div>
                 <div className="text-xs text-textMuted space-y-2">
                   <p>• 美联储降息概率高达 87%</p>
                   <p>• 结束量化紧缩 (QT)</p>
-                  <p>• 注入流动性，<span className="text-green-400">提振风险偏好</span></p>
+                  <p>• 注入流动性，<span className="text-green-500 dark:text-green-400">提振风险偏好</span></p>
                 </div>
               </div>
             </div>
@@ -61,11 +61,11 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         title: "流动性警报：日元套利交易平仓",
         content: (
           <div className="space-y-4">
-            <div className="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+            <div className="flex items-center justify-between text-sm border-b border-borderDim pb-2">
               <span className="text-textMuted">日元套利交易规模缩水</span>
               <span className="text-textMain font-mono">$1.2T → $0.9T</span>
             </div>
-            <div className="flex items-center justify-between text-sm border-b border-white/5 pb-2">
+            <div className="flex items-center justify-between text-sm border-b border-borderDim pb-2">
               <span className="text-textMuted">预计回流日本资金</span>
               <span className="text-textMain font-mono">$800B - $1.5T</span>
             </div>
@@ -84,17 +84,17 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         content: (
           <div className="space-y-6">
             <div className="grid grid-cols-2 gap-4 text-center">
-              <div className="p-4 bg-surface rounded-xl border border-white/5">
+              <div className="p-4 bg-surface rounded-xl border border-borderDim">
                 <div className="text-2xl font-black text-textMain mb-1">$223亿</div>
                 <div className="text-xs text-textMuted uppercase">2025年 ETF 净流入</div>
               </div>
-              <div className="p-4 bg-surface rounded-xl border border-white/5">
+              <div className="p-4 bg-surface rounded-xl border border-borderDim">
                 <div className="text-2xl font-black text-textMain mb-1">55%</div>
                 <div className="text-xs text-textMuted uppercase">机构持仓占比 (提升10%)</div>
               </div>
             </div>
             <p className="text-sm text-textMuted">
-              与以往周期不同，当前的比特币市场拥有前所未有的机构参与度作为缓冲。黑石 IBIT 持仓规模已约 <span className="text-white font-bold">$600亿</span>。
+              与以往周期不同，当前的比特币市场拥有前所未有的机构参与度作为缓冲。黑石 IBIT 持仓规模已约 <span className="text-textMain font-bold">$600亿</span>。
             </p>
           </div>
         )
@@ -107,7 +107,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         title: "通往 $180,000 之路",
         content: (
           <div className="space-y-6">
-             <div className="relative h-48 w-full bg-white/5 rounded-xl border border-white/5 p-4 flex items-end justify-between group overflow-hidden">
+             <div className="relative h-48 w-full bg-black/5 dark:bg-white/5 rounded-xl border border-borderDim p-4 flex items-end justify-between group overflow-hidden">
                 {/* Simplified Chart Line */}
                 <svg className="absolute inset-0 w-full h-full text-green-500/20" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <path d="M0,80 C20,80 30,50 50,50 C70,50 80,10 100,5 L100,100 L0,100 Z" fill="currentColor" />
@@ -128,11 +128,11 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
                 <div className="relative z-10 flex flex-col items-center gap-1 mb-32">
                    <span className="text-xs font-mono text-textMuted">2026/06</span>
                    <div className="w-2 h-2 bg-green-500 rounded-full shadow-[0_0_10px_#22c55e]"></div>
-                   <span className="text-lg font-black text-green-400">$180k</span>
+                   <span className="text-lg font-black text-green-500 dark:text-green-400">$180k</span>
                 </div>
              </div>
              <div className="text-sm text-textMuted leading-relaxed">
-               核心预测：宏观力量的博弈将引导BTC走出<span className="text-white">“短期探底 ($85k) → 中期复苏 ($105k) → 长期加速 ($180k)”</span>的三阶段路径。
+               核心预测：宏观力量的博弈将引导BTC走出<span className="text-textMain">“短期探底 ($85k) → 中期复苏 ($105k) → 长期加速 ($180k)”</span>的三阶段路径。
              </div>
           </div>
         )
@@ -145,19 +145,19 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         title: "投资策略与风控",
         content: (
           <div className="space-y-3">
-             <div className="flex gap-4 items-start p-3 bg-white/5 rounded-lg border-l-2 border-green-500">
+             <div className="flex gap-4 items-start p-3 bg-black/5 dark:bg-white/5 rounded-lg border-l-2 border-green-500">
                <div className="flex-1">
                  <h4 className="text-sm font-bold text-textMain mb-1">布局多头</h4>
-                 <p className="text-xs text-textMuted">入场区间: <span className="text-green-400 font-mono">$95,000 - $98,000</span> (阻力位突破后)</p>
+                 <p className="text-xs text-textMuted">入场区间: <span className="text-green-500 dark:text-green-400 font-mono">$95,000 - $98,000</span> (阻力位突破后)</p>
                </div>
              </div>
-             <div className="flex gap-4 items-start p-3 bg-white/5 rounded-lg border-l-2 border-red-500">
+             <div className="flex gap-4 items-start p-3 bg-black/5 dark:bg-white/5 rounded-lg border-l-2 border-red-500">
                <div className="flex-1">
                  <h4 className="text-sm font-bold text-textMain mb-1">止损风控</h4>
                  <p className="text-xs text-textMuted">设于关键支撑 <span className="text-red-400 font-mono">$80,000</span> 下方</p>
                </div>
              </div>
-             <div className="flex gap-4 items-start p-3 bg-white/5 rounded-lg border-l-2 border-orange-500">
+             <div className="flex gap-4 items-start p-3 bg-black/5 dark:bg-white/5 rounded-lg border-l-2 border-orange-500">
                <div className="flex-1">
                  <h4 className="text-sm font-bold text-textMain mb-1">仓位管理</h4>
                  <p className="text-xs text-textMuted">建议BTC仓位不超过投资组合总资产的 15%。机构建议 5-10% 长期配置。</p>
@@ -177,7 +177,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         <div className="flex items-center gap-4 mb-8">
           <button 
             onClick={onBack}
-            className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all group"
+            className="w-10 h-10 rounded-full bg-surface border border-borderDim flex items-center justify-center text-textMuted hover:text-textMain hover:border-accent transition-all group"
           >
             <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           </button>
@@ -225,9 +225,9 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         {/* Master Toggle Control */}
         <div 
           onClick={() => setIsContentExpanded(!isContentExpanded)}
-          className="flex items-center gap-3 mb-8 cursor-pointer group select-none bg-surface/30 p-3 rounded-xl border border-white/5 hover:bg-surface/60 transition-colors"
+          className="flex items-center gap-3 mb-8 cursor-pointer group select-none bg-surface/30 p-3 rounded-xl border border-borderDim hover:bg-surface/60 transition-colors"
         >
-            <div className={`w-8 h-8 rounded-full bg-surface border border-white/10 flex items-center justify-center transition-all duration-300 ${isContentExpanded ? 'bg-accent/20 border-accent text-accent rotate-0' : 'text-textMuted group-hover:bg-white/10 -rotate-90'}`}>
+            <div className={`w-8 h-8 rounded-full bg-surface border border-borderDim flex items-center justify-center transition-all duration-300 ${isContentExpanded ? 'bg-accent/20 border-accent text-accent rotate-0' : 'text-textMuted group-hover:bg-black/5 dark:group-hover:bg-white/10 -rotate-90'}`}>
                 <ChevronDown className="w-5 h-5" />
             </div>
             <div className="flex flex-col">
@@ -244,17 +244,17 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
         {isContentExpanded && (
           <div className="space-y-6 relative animate-in fade-in slide-in-from-top-4 duration-500">
             {/* Vertical Timeline Line */}
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-white/10 hidden md:block"></div>
+            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-borderDim hidden md:block"></div>
 
             {reportData.cards.map((card, index) => {
               return (
                 <div key={card.id} className="relative pl-0 md:pl-20 group">
                   {/* Timeline Node */}
-                  <div className="absolute left-6 md:left-8 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-surface border-2 border-white/20 z-10 hidden md:block group-hover:border-accent group-hover:scale-125 transition-all"></div>
+                  <div className="absolute left-6 md:left-8 top-8 -translate-x-1/2 w-3 h-3 rounded-full bg-surface border-2 border-borderDim z-10 hidden md:block group-hover:border-accent group-hover:scale-125 transition-all"></div>
 
-                  <div className="bg-surface backdrop-blur-md border border-white/5 rounded-2xl p-6 hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                  <div className="bg-surface backdrop-blur-md border border-borderDim rounded-2xl p-6 hover:border-black/10 dark:hover:border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
                       <div className="flex items-start gap-4">
-                        <div className={`shrink-0 w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/5 ${card.color}`}>
+                        <div className={`shrink-0 w-12 h-12 rounded-xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-borderDim ${card.color}`}>
                             <card.icon className="w-6 h-6" />
                         </div>
                         
@@ -275,7 +275,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
 
             {/* Conclusion Card */}
             <div className="relative pl-0 md:pl-20 pb-12">
-              <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-white/10 rounded-2xl p-8 text-center">
+              <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border border-borderDim rounded-2xl p-8 text-center">
                   <h3 className="text-xl font-bold text-textMain mb-2">结论：数字黄金的成熟礼</h3>
                   <p className="text-textMuted text-sm mb-6">
                     2025年底的政策双刃剑，既是对比特币韧性的一次严峻考验，也是其作为宏观对冲资产角色的确立。拥抱结构性转变，驾驭宏观浪潮。
@@ -293,7 +293,7 @@ const ResearchView: React.FC<Props> = ({ onBack }) => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
               >
-                  <button className="flex items-center gap-2 text-xs text-textMuted hover:text-accent opacity-50 hover:opacity-100 transition-opacity px-4 py-2 rounded-full border border-transparent hover:border-white/5">
+                  <button className="flex items-center gap-2 text-xs text-textMuted hover:text-accent opacity-50 hover:opacity-100 transition-opacity px-4 py-2 rounded-full border border-transparent hover:border-borderDim">
                       <ChevronDown className="w-3 h-3 rotate-180" /> 收起研报
                   </button>
               </div>

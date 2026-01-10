@@ -42,13 +42,13 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
     balance,
     chainId,
     switchChain
-  } = wallet || {}; // Safe destructure in case hook fails slightly
+  } = wallet || {};
 
   const isWrongNetwork = isConnected && chainId !== xLayer.id;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -56,10 +56,9 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
 
   // Show error alert if wallet error occurs
   useEffect(() => {
-    if (error) {
-        if (typeof error === 'string' && !error.includes('User Rejected')) {
-            alert(error);
-        }
+    if (error && typeof error === 'string' && !error.includes('User Rejected')) {
+        // Use a clearer way to show error in production, alert is okay for now
+        console.error(error);
     }
   }, [error]);
 
@@ -82,278 +81,194 @@ const Navigation: React.FC<NavigationProps> = ({ currentSection, onNavigate }) =
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled || isMobileMenuOpen
-          ? 'bg-background/80 backdrop-blur-xl border-b border-white/5'
-          : 'bg-transparent border-b border-transparent'
+      className={`fixed top-4 left-0 right-0 z-50 transition-all duration-500 ease-in-out px-4 flex justify-center ${
+        isScrolled 
+          ? 'translate-y-0' 
+          : 'translate-y-2'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+      <div 
+        className={`w-full max-w-7xl transition-all duration-500 rounded-2xl flex items-center justify-between px-4 sm:px-6 py-3 ${
+            isScrolled 
+            ? 'bg-surface/80 backdrop-blur-xl border border-borderDim shadow-2xl shadow-black/5 dark:shadow-black/20' 
+            : 'bg-transparent border border-transparent'
+        }`}
+      >
           {/* Logo */}
           <div 
             className="flex-shrink-0 flex items-center cursor-pointer group"
             onClick={() => onNavigate(SectionType.HOME)}
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-secondary flex items-center justify-center mr-3 shadow-lg shadow-primary/20 group-hover:shadow-primary/40 transition-all duration-300">
-              <Rocket className="text-white w-6 h-6" />
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-secondary flex items-center justify-center mr-3 transition-all duration-300 ${isScrolled ? 'shadow-lg shadow-primary/20' : 'shadow-2xl shadow-primary/40'}`}>
+              <Rocket className="text-white w-5 h-5 group-hover:rotate-12 transition-transform" />
             </div>
-            <span className="font-bold text-2xl tracking-tighter textMain">
+            <span className={`font-bold text-xl tracking-tighter transition-colors ${isScrolled ? 'text-textMain' : 'text-textMain'}`}>
               {APP_NAME}
             </span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              {NAV_ITEMS.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => onNavigate(item.id)}
-                  className={`relative px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 flex items-center gap-2 group ${
-                    currentSection === item.id
-                      ? 'text-accent'
-                      : 'text-textMuted hover:text-textMain'
-                  }`}
-                >
-                  <item.icon className={`w-4 h-4 transition-colors ${currentSection === item.id ? 'text-accent' : 'group-hover:text-accent'}`} />
-                  {getNavLabel(item.id)}
-                  {currentSection === item.id && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent shadow-[0_0_10px_var(--accent-color)] rounded-full transform scale-x-100 transition-transform duration-300" />
-                  )}
-                </button>
-              ))}
-            </div>
+          {/* Desktop Menu - Centered Island Style */}
+          <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2">
+             <div className={`flex items-center gap-1 p-1.5 rounded-full transition-all duration-500 ${isScrolled ? 'bg-black/5 dark:bg-white/5 border border-borderDim' : 'bg-surface/30 backdrop-blur-md border border-borderDim'}`}>
+                {NAV_ITEMS.map((item) => (
+                    <button
+                    key={item.id}
+                    onClick={() => onNavigate(item.id)}
+                    className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-2 ${
+                        currentSection === item.id
+                        ? 'text-white bg-textMain shadow-sm'
+                        : 'text-textMuted hover:text-textMain hover:bg-black/5 dark:hover:bg-white/5'
+                    }`}
+                    >
+                    {currentSection === item.id && (
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                    )}
+                    {getNavLabel(item.id)}
+                    </button>
+                ))}
+             </div>
           </div>
 
-          {/* Controls */}
-          <div className="hidden lg:flex items-center gap-4">
-             {/* Theme Switcher */}
-             <div className="relative">
+          {/* Right Controls */}
+          <div className="hidden lg:flex items-center gap-3">
+             {/* Theme & Language */}
+             <div className="flex items-center gap-2 pr-4 border-r border-borderDim">
                 <button 
                   onClick={() => setShowThemeMenu(!showThemeMenu)}
-                  className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-textMuted hover:text-textMain hover:bg-white/5 transition-all"
-                  title="Theme Settings"
+                  className="w-9 h-9 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 flex items-center justify-center text-textMuted hover:text-accent transition-all relative"
                 >
                   <Palette className="w-4 h-4" />
-                </button>
-                {showThemeMenu && (
-                  <div className="absolute top-10 right-0 glass-panel p-4 rounded-xl flex flex-col gap-4 min-w-[240px] animate-in fade-in zoom-in duration-200 shadow-2xl z-50">
-                    
-                    {/* Mode Toggle */}
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm text-textMuted font-bold">Mode</span>
-                        <button 
-                            onClick={toggleThemeMode}
-                            className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:border-accent/50 transition-colors"
-                        >
-                            {themeMode === 'dark' ? (
-                                <><Moon className="w-3 h-3 text-accent" /> <span className="text-xs text-textMain">Dark</span></>
-                            ) : (
-                                <><Sun className="w-3 h-3 text-yellow-500" /> <span className="text-xs text-textMain">Light</span></>
-                            )}
-                        </button>
-                    </div>
-
-                    <div className="h-px bg-white/10 w-full"></div>
-
-                    {/* Colors */}
-                    <div>
-                        <span className="text-sm text-textMuted font-bold mb-3 block">Accent Color</span>
-                        <div className="grid grid-cols-4 gap-3">
+                  {showThemeMenu && (
+                    <div className="absolute top-12 right-0 glass-panel p-4 rounded-2xl flex flex-col gap-4 min-w-[260px] animate-in fade-in zoom-in-95 duration-200 shadow-2xl z-50 border border-borderDim">
+                        {/* Mode */}
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs text-textMuted font-bold uppercase tracking-wider">Appearance</span>
+                            <button onClick={toggleThemeMode} className="p-1.5 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors">
+                                {themeMode === 'dark' ? <Moon className="w-4 h-4 text-accent" /> : <Sun className="w-4 h-4 text-yellow-500" />}
+                            </button>
+                        </div>
+                        {/* Colors */}
+                        <div className="grid grid-cols-4 gap-2">
                             {THEME_COLORS.map((tc) => (
                                 <button
                                     key={tc.id}
-                                    onClick={() => { setThemeColor(tc.id); }}
-                                    className={`w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 flex items-center justify-center ${themeColor === tc.id ? 'border-textMain' : 'border-transparent'}`}
-                                    style={{ backgroundColor: tc.color }}
-                                    title={tc.id}
+                                    onClick={() => setThemeColor(tc.id)}
+                                    className={`h-8 rounded-lg border flex items-center justify-center transition-all ${themeColor === tc.id ? 'border-textMain/50 scale-105' : 'border-transparent hover:scale-105'}`}
+                                    style={{ backgroundColor: `${tc.color}33` }} // 20% opacity background
                                 >
-                                    {themeColor === tc.id && <Check className="w-4 h-4 text-white drop-shadow-md" />}
+                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: tc.color }}></div>
                                 </button>
                             ))}
                         </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </button>
+
+                <button 
+                    onClick={toggleLanguage}
+                    className="w-9 h-9 rounded-full bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 flex items-center justify-center text-xs font-mono font-bold text-textMuted hover:text-textMain transition-all"
+                >
+                    {language === 'zh' ? 'EN' : '中'}
+                </button>
              </div>
 
-             {/* Language Switcher */}
-             <button 
-                onClick={toggleLanguage}
-                className="flex items-center gap-1 text-xs font-mono font-bold text-textMuted hover:text-accent transition-colors"
-             >
-                <Globe className="w-4 h-4" />
-                {language.toUpperCase()}
-             </button>
-
-             {/* Web3 Connect Button */}
+             {/* Wallet Connection */}
              {isConnected ? (
                 <div className="flex items-center gap-2">
                     {isWrongNetwork ? (
                         <button 
                             onClick={() => switchChain && switchChain(xLayer.id)}
-                            className="bg-red-500/20 hover:bg-red-500/30 border border-red-500/50 text-red-400 px-4 py-2 rounded-full font-mono text-xs flex items-center gap-2 transition-all animate-pulse whitespace-nowrap"
+                            className="bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-400 px-4 py-2 rounded-full font-mono text-xs flex items-center gap-2 transition-all animate-pulse"
                         >
                             <AlertCircle className="w-3 h-3" />
-                            Switch to X Layer
-                            <RefreshCw className="w-3 h-3" />
+                            Wrong Network
                         </button>
                     ) : (
-                        <div className="flex items-center gap-3 bg-surface/80 border border-white/10 rounded-full py-1.5 pl-4 pr-1.5 backdrop-blur-md shadow-sm transition-all hover:border-white/20 hover:bg-surface">
-                            {/* Network & Balance */}
-                            <div className="flex flex-col items-end space-y-0.5">
-                                <span className="text-[10px] font-bold text-textMuted uppercase tracking-wider leading-none">X Layer</span>
-                                <span className="text-xs font-mono font-bold text-accent leading-none whitespace-nowrap">
-                                    {balance && balance.value ? parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(3) : '0.00'} {balance?.symbol}
-                                </span>
+                        <button 
+                            onClick={() => disconnect && disconnect()}
+                            className="group relative flex items-center gap-3 pl-1 pr-4 py-1.5 rounded-full bg-surface/50 border border-borderDim hover:border-red-500/30 hover:bg-red-500/10 transition-all duration-300"
+                        >
+                            <div className="relative flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500">
+                                <Wallet className="w-3 h-3 text-white" />
                             </div>
-
-                            {/* Divider */}
-                            <div className="w-px h-5 bg-white/10"></div>
-
-                            {/* Wallet Button */}
-                            <button 
-                                onClick={() => disconnect && disconnect()}
-                                className="group flex items-center gap-2 pl-1 pr-2 py-1 rounded-full hover:bg-white/5 transition-all"
-                                title="Click to disconnect"
-                            >
-                                <div className="relative flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                                    <span className="absolute w-full h-full rounded-full bg-white opacity-20 animate-pulse"></span>
-                                </div>
-                                <span className="text-xs font-mono font-bold text-textMain group-hover:text-red-400 transition-colors whitespace-nowrap">
+                            <div className="flex flex-col items-start">
+                                <span className="text-[10px] text-textMuted leading-none mb-0.5">Connected</span>
+                                <span className="text-xs font-mono font-bold text-textMain group-hover:text-red-400 transition-colors">
                                     {formattedAddress}
                                 </span>
-                                <div className="w-5 h-5 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-red-500/20 group-hover:text-red-400 transition-colors ml-1">
-                                    <LogOut className="w-3 h-3" />
-                                </div>
-                            </button>
-                        </div>
+                            </div>
+                        </button>
                     )}
                 </div>
              ) : (
                 <button 
                     onClick={() => connect && connect()} 
                     disabled={isConnecting}
-                    className="bg-white/5 hover:bg-white/10 border border-white/10 text-textMain px-6 py-2 rounded-full font-mono text-xs tracking-wider uppercase transition-all hover:border-accent/50 hover:shadow-[0_0_15px_var(--accent-color)] flex items-center gap-2 disabled:opacity-50 disabled:cursor-wait whitespace-nowrap"
+                    className="relative overflow-hidden group bg-textMain text-background px-6 py-2.5 rounded-full font-bold text-xs tracking-wide transition-all hover:scale-105"
                 >
-                    {isConnecting ? (
-                        <>
-                           <Loader2 className="w-3 h-3 animate-spin" />
-                           Connecting...
-                        </>
-                    ) : (
-                        <>
-                           <Wallet className="w-3 h-3" />
-                           {t.nav.connect}
-                        </>
-                    )}
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <span className="relative z-10 flex items-center gap-2 group-hover:text-white transition-colors">
+                        {isConnecting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Wallet className="w-3 h-3" />}
+                        {t.nav.connect}
+                    </span>
                 </button>
              )}
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center gap-4">
-             <button 
-                onClick={toggleLanguage}
-                className="text-textMain font-bold"
-             >
-                {language === 'zh' ? 'EN' : '中'}
-             </button>
-            <button
+          {/* Mobile Toggle */}
+          <div className="lg:hidden flex items-center gap-3">
+             <button onClick={toggleLanguage} className="text-sm font-bold text-textMain">{language.toUpperCase()}</button>
+             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-textMuted hover:text-textMain hover:bg-white/10 focus:outline-none"
+              className="p-2 rounded-full bg-black/5 dark:bg-white/5 text-textMain"
             >
-              {isMobileMenuOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
-        </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden glass-panel border-t border-white/10">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {NAV_ITEMS.map((item) => (
+        <div className="absolute top-20 left-4 right-4 glass-panel rounded-2xl p-4 flex flex-col gap-2 animate-in fade-in slide-in-from-top-4 duration-300 shadow-xl">
+             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
                 onClick={() => {
                   onNavigate(item.id);
                   setIsMobileMenuOpen(false);
                 }}
-                className={`w-full text-left px-3 py-4 rounded-md text-base font-medium flex items-center gap-3 ${
+                className={`w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center gap-3 transition-colors ${
                   currentSection === item.id
-                    ? 'bg-white/10 text-textMain'
-                    : 'text-textMuted hover:bg-white/5 hover:text-textMain'
+                    ? 'bg-black/10 dark:bg-white/10 text-textMain'
+                    : 'text-textMuted hover:bg-black/5 dark:hover:bg-white/5 hover:text-textMain'
                 }`}
               >
-                <item.icon className="w-5 h-5 text-accent" />
+                <item.icon className="w-4 h-4" />
                 {getNavLabel(item.id)}
               </button>
             ))}
             
-            <div className="p-4 border-t border-white/5 space-y-4">
-                <div className="flex items-center justify-between">
-                    <span className="text-sm text-textMuted">Appearance</span>
-                    <button 
-                        onClick={toggleThemeMode}
-                        className="flex items-center gap-2 bg-white/5 px-3 py-1.5 rounded-full border border-white/10"
-                    >
-                        {themeMode === 'dark' ? (
-                            <><Moon className="w-3 h-3 text-accent" /> <span className="text-xs text-textMain">Dark</span></>
-                        ) : (
-                            <><Sun className="w-3 h-3 text-yellow-500" /> <span className="text-xs text-textMain">Light</span></>
-                        )}
-                    </button>
-                </div>
-                
-                <div className="grid grid-cols-8 gap-2">
-                    {THEME_COLORS.map((tc) => (
-                        <button
-                            key={tc.id}
-                            onClick={() => setThemeColor(tc.id)}
-                            className={`w-6 h-6 rounded-full border-2 ${themeColor === tc.id ? 'border-textMain' : 'border-transparent'} flex items-center justify-center`}
-                            style={{ backgroundColor: tc.color }}
-                        >
-                             {themeColor === tc.id && <Check className="w-3 h-3 text-white" />}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            <div className="px-3 py-4">
-              {isConnected ? (
-                  isWrongNetwork ? (
-                    <button 
-                        onClick={() => switchChain && switchChain(xLayer.id)}
-                        className="w-full bg-red-500/20 border border-red-500/50 text-red-400 px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
-                    >
-                        <AlertCircle className="w-4 h-4" />
-                        Switch Network
-                    </button>
-                  ) : (
-                    <button 
-                        onClick={() => disconnect && disconnect()}
-                        className="w-full bg-white/5 border border-white/10 text-textMain px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
-                    >
-                        <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                        {formattedAddress} ({connectorName})
-                    </button>
-                  )
-              ) : (
-                  <button 
+            <div className="h-px bg-borderDim my-2"></div>
+            
+            {/* Mobile Wallet */}
+            {isConnected ? (
+                <button 
+                    onClick={() => disconnect && disconnect()}
+                    className="w-full bg-red-500/10 text-red-400 px-4 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2"
+                >
+                    Disconnect {formattedAddress}
+                </button>
+            ) : (
+                <button 
                     onClick={() => {
                         if (connect) connect();
                         setIsMobileMenuOpen(false);
                     }}
-                    className="w-full bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-lg font-bold flex items-center justify-center gap-2"
-                  >
-                      <Wallet className="w-4 h-4" />
-                      {t.nav.connect}
-                  </button>
-              )}
-            </div>
-          </div>
+                    className="w-full bg-textMain text-background px-4 py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2"
+                >
+                    Connect Wallet
+                </button>
+            )}
         </div>
       )}
     </nav>
